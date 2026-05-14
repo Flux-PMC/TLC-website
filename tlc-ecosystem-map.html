@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TLC Photography — Digital Ecosystem</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;1,300&family=Raleway:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#FAF7F4;color:#3A3338;font-family:'Raleway',sans-serif;font-weight:300;padding:40px 20px}
+h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:400}
+.page{max-width:1200px;margin:0 auto}
+.header{text-align:center;margin-bottom:60px;position:relative}
+.header h1{font-size:42px;letter-spacing:2px;margin-bottom:8px}
+.header .tagline{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;color:#9B8EC4;font-size:18px}
+.header .subtitle{font-size:14px;color:#A89B91;margin-top:16px;letter-spacing:1px;text-transform:uppercase}
+svg.honeysuckle{position:absolute;opacity:0.6}
+.honeysuckle-left{left:-10px;top:0}
+.honeysuckle-right{right:-10px;top:0;transform:scaleX(-1)}
+
+.ecosystem{position:relative;min-height:900px;margin:0 auto}
+
+.cluster{position:absolute;background:#fff;border:1px solid #EDE7DF;border-radius:12px;padding:20px;min-width:200px}
+.cluster h3{font-size:18px;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid #EDE7DF}
+.cluster ul{list-style:none;font-size:13px;line-height:2}
+.cluster li{padding-left:12px;position:relative}
+.cluster li::before{content:'';position:absolute;left:0;top:50%;width:6px;height:6px;border-radius:50%;transform:translateY(-50%)}
+
+.cluster.infrastructure h3{color:#9B8EC4}
+.cluster.infrastructure li::before{background:#9B8EC4}
+.cluster.build h3{color:#7B8A6E}
+.cluster.build li::before{background:#C2CBB2}
+.cluster.design h3{color:#9B8EC4}
+.cluster.design li::before{background:#DDD4EE}
+.cluster.services h3{color:#8E7568}
+.cluster.services li::before{background:#A89B91}
+.cluster.selfhosted h3{color:#7B8A6E}
+.cluster.selfhosted li::before{background:#C2CBB2}
+.cluster.social h3{color:#9B8EC4}
+.cluster.social li::before{background:#9B8EC4}
+.cluster.automation h3{color:#8E7568}
+.cluster.automation li::before{background:#A89B91}
+.cluster.frontend h3{color:#7B8A6E}
+.cluster.frontend li::before{background:#C2CBB2}
+
+.center-node{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:#9B8EC4;color:#FAF7F4;border-radius:50%;width:160px;height:160px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;z-index:10;box-shadow:0 4px 24px rgba(155,142,196,0.3)}
+.center-node h2{font-size:20px;margin-bottom:4px}
+.center-node p{font-size:11px;opacity:0.85}
+
+.operator{position:absolute;left:50%;bottom:20px;transform:translateX(-50%);background:#3A3338;color:#FAF7F4;border-radius:8px;padding:12px 24px;text-align:center;z-index:10}
+.operator h3{font-size:16px;color:#DDD4EE}
+.operator p{font-size:11px;opacity:0.7}
+
+.client-node{position:absolute;left:50%;top:20px;transform:translateX(-50%);background:#EDE7DF;color:#3A3338;border-radius:8px;padding:12px 24px;text-align:center;z-index:10}
+.client-node h3{font-size:16px}
+.client-node p{font-size:11px;color:#A89B91}
+
+canvas{position:absolute;top:0;left:0;width:100%;height:100%;z-index:1;pointer-events:none}
+.cluster{z-index:5}
+
+.legend{margin-top:40px;display:flex;flex-wrap:wrap;gap:24px;justify-content:center;font-size:12px;color:#A89B91}
+.legend-item{display:flex;align-items:center;gap:6px}
+.legend-dot{width:10px;height:10px;border-radius:50%}
+
+.note{text-align:center;margin-top:32px;font-size:12px;color:#A89B91;font-style:italic}
+
+@media(max-width:900px){
+.ecosystem{min-height:auto}
+.cluster{position:relative!important;left:auto!important;top:auto!important;right:auto!important;bottom:auto!important;margin:12px auto;width:90%!important}
+.center-node,.operator,.client-node{position:relative;left:auto;top:auto;bottom:auto;transform:none;margin:20px auto}
+canvas{display:none}
+}
+</style>
+</head>
+<body>
+<div class="page">
+<div class="header">
+<svg class="honeysuckle honeysuckle-left" width="80" height="120" viewBox="0 0 80 120">
+<path d="M40 120 Q38 90 35 70 Q30 50 25 40 Q20 30 22 20" fill="none" stroke="#C2CBB2" stroke-width="1.5" stroke-linecap="round"/>
+<ellipse cx="18" cy="18" rx="6" ry="3" transform="rotate(-30 18 18)" fill="none" stroke="#C2CBB2" stroke-width="1"/>
+<ellipse cx="28" cy="22" rx="5" ry="2.5" transform="rotate(20 28 22)" fill="none" stroke="#C2CBB2" stroke-width="1"/>
+<path d="M22 14 Q20 8 18 4" fill="none" stroke="#9B8EC4" stroke-width="1.2" stroke-linecap="round"/>
+<path d="M24 12 Q26 6 25 2" fill="none" stroke="#9B8EC4" stroke-width="1.2" stroke-linecap="round"/>
+<path d="M20 16 Q16 12 14 8" fill="none" stroke="#DDD4EE" stroke-width="1" stroke-linecap="round"/>
+<ellipse cx="32" cy="38" rx="5" ry="2.5" transform="rotate(-10 32 38)" fill="none" stroke="#C2CBB2" stroke-width="1"/>
+<ellipse cx="28" cy="42" rx="4" ry="2" transform="rotate(30 28 42)" fill="none" stroke="#C2CBB2" stroke-width="1"/>
+</svg>
+<svg class="honeysuckle honeysuckle-right" width="80" height="120" viewBox="0 0 80 120">
+<path d="M40 120 Q38 90 35 70 Q30 50 25 40 Q20 30 22 20" fill="none" stroke="#C2CBB2" stroke-width="1.5" stroke-linecap="round"/>
+<ellipse cx="18" cy="18" rx="6" ry="3" transform="rotate(-30 18 18)" fill="none" stroke="#C2CBB2" stroke-width="1"/>
+<ellipse cx="28" cy="22" rx="5" ry="2.5" transform="rotate(20 28 22)" fill="none" stroke="#C2CBB2" stroke-width="1"/>
+<path d="M22 14 Q20 8 18 4" fill="none" stroke="#9B8EC4" stroke-width="1.2" stroke-linecap="round"/>
+<path d="M24 12 Q26 6 25 2" fill="none" stroke="#9B8EC4" stroke-width="1.2" stroke-linecap="round"/>
+<path d="M20 16 Q16 12 14 8" fill="none" stroke="#DDD4EE" stroke-width="1" stroke-linecap="round"/>
+<ellipse cx="32" cy="38" rx="5" ry="2.5" transform="rotate(-10 32 38)" fill="none" stroke="#C2CBB2" stroke-width="1"/>
+<ellipse cx="28" cy="42" rx="4" ry="2" transform="rotate(30 28 42)" fill="none" stroke="#C2CBB2" stroke-width="1"/>
+</svg>
+<h1>TLC Photography</h1>
+<div class="tagline">Tender love lights the way.</div>
+<div class="subtitle">Digital Ecosystem Architecture</div>
+</div>
+
+<div class="ecosystem" id="ecosystem">
+<canvas id="connections"></canvas>
+
+<div class="client-node" id="clients">
+<h3>Clients</h3>
+<p>Browse, book, view galleries, subscribe</p>
+</div>
+
+<div class="center-node" id="center">
+<h2>tlc-photography.com</h2>
+<p>Astro + Keystatic<br>Cloudflare Pages</p>
+</div>
+
+<div class="cluster infrastructure" id="infra" style="left:20px;top:80px;width:220px">
+<h3>Infrastructure</h3>
+<ul>
+<li>Cloudflare DNS</li>
+<li>Cloudflare Pages (hosting)</li>
+<li>Cloudflare Workers (forms)</li>
+<li>Cloudflare R2 (images)</li>
+<li>Cloudflare Email Routing</li>
+<li>SSL/HTTPS (auto)</li>
+</ul>
+</div>
+
+<div class="cluster build" id="build" style="right:20px;top:80px;width:220px">
+<h3>Source & Build</h3>
+<ul>
+<li>GitHub (flux-PMC/TLC-website)</li>
+<li>Astro (static site generator)</li>
+<li>Keystatic (CMS)</li>
+<li>Claude Code (build tool)</li>
+</ul>
+</div>
+
+<div class="cluster design" id="designtools" style="left:20px;top:320px;width:220px">
+<h3>Design & Planning</h3>
+<ul>
+<li>Claude Cowork (planning)</li>
+<li>Claude Design (visual system)</li>
+<li>Gemini (logo generation)</li>
+<li>OmniSVG / StarVector (vectors)</li>
+<li>Adobe Illustrator (cleanup)</li>
+</ul>
+</div>
+
+<div class="cluster frontend" id="frontendtools" style="right:20px;top:320px;width:220px">
+<h3>Frontend Stack</h3>
+<ul>
+<li>shadcn/ui (components)</li>
+<li>Fontsource (self-hosted fonts)</li>
+<li>Lucide (icons)</li>
+<li>Twilight transition (custom JS)</li>
+</ul>
+</div>
+
+<div class="cluster services" id="thirdparty" style="left:20px;top:560px;width:220px">
+<h3>Third-Party Services</h3>
+<ul>
+<li>Calendly (scheduling)</li>
+<li>Pixieset (client galleries)</li>
+<li>Stripe (payments)</li>
+</ul>
+</div>
+
+<div class="cluster selfhosted" id="selfhosted" style="right:20px;top:560px;width:220px">
+<h3>Self-Hosted (Home Server)</h3>
+<ul>
+<li>Ghost (blog engine)</li>
+<li>Listmonk (email lists)</li>
+<li>Shlink (link tracking)</li>
+<li>Umami (analytics)</li>
+<li>Private email server</li>
+</ul>
+</div>
+
+<div class="cluster social" id="socialmarketing" style="left:20px;top:760px;width:220px">
+<h3>Social & Marketing</h3>
+<ul>
+<li>Google Business Profile</li>
+<li>Facebook Business Page</li>
+<li>Instagram Business</li>
+<li>Linktree (link hub)</li>
+<li>SEO (meta, sitemap, schema)</li>
+</ul>
+</div>
+
+<div class="cluster automation" id="automationtools" style="right:20px;top:760px;width:220px">
+<h3>Automation & AI</h3>
+<ul>
+<li>Hermes Agents (GBP, email)</li>
+<li>TLC Chatbot (by Flux)</li>
+<li>Post-session pipeline</li>
+<li>Review collection system</li>
+</ul>
+</div>
+
+<div class="operator" id="operator">
+<h3>JP — Webmaster & Operator</h3>
+<p>Manages all systems via Claude Code, Cowork, and direct access</p>
+</div>
+</div>
+
+<div class="legend">
+<div class="legend-item"><div class="legend-dot" style="background:#9B8EC4"></div> Infrastructure & Design</div>
+<div class="legend-item"><div class="legend-dot" style="background:#C2CBB2"></div> Build & Frontend</div>
+<div class="legend-item"><div class="legend-dot" style="background:#A89B91"></div> Services & Automation</div>
+<div class="legend-item"><div class="legend-dot" style="background:#3A3338"></div> Operator</div>
+<div class="legend-item"><div class="legend-dot" style="background:#EDE7DF"></div> Clients</div>
+</div>
+
+<div class="note">
+All self-hosted services run on the home server. All cloud services route through Cloudflare.<br>
+Arrows show data flow direction. JP interfaces with everything through Claude tools and direct dashboards.
+</div>
+</div>
+
+<script>
+function drawConnections(){
+const canvas=document.getElementById('connections');
+const eco=document.getElementById('ecosystem');
+const rect=eco.getBoundingClientRect();
+canvas.width=rect.width;
+canvas.height=rect.height;
+const ctx=canvas.getContext('2d');
+ctx.clearRect(0,0,canvas.width,canvas.height);
+
+function getCenter(id){
+const el=document.getElementById(id);
+if(!el)return{x:0,y:0};
+const r=el.getBoundingClientRect();
+const er=eco.getBoundingClientRect();
+return{x:r.left-er.left+r.width/2,y:r.top-er.top+r.height/2};
+}
+
+function drawLine(from,to,color,dashed){
+const a=getCenter(from);
+const b=getCenter(to);
+ctx.beginPath();
+ctx.strokeStyle=color;
+ctx.lineWidth=1.5;
+if(dashed)ctx.setLineDash([6,4]);
+else ctx.setLineDash([]);
+ctx.moveTo(a.x,a.y);
+const mx=(a.x+b.x)/2;
+const my=(a.y+b.y)/2;
+const ox=(b.y-a.y)*0.15;
+ctx.quadraticCurveTo(mx+ox,my,b.x,b.y);
+ctx.stroke();
+// arrowhead
+const angle=Math.atan2(b.y-my,b.x-mx);
+ctx.beginPath();
+ctx.moveTo(b.x,b.y);
+ctx.lineTo(b.x-8*Math.cos(angle-0.4),b.y-8*Math.sin(angle-0.4));
+ctx.lineTo(b.x-8*Math.cos(angle+0.4),b.y-8*Math.sin(angle+0.4));
+ctx.closePath();
+ctx.fillStyle=color;
+ctx.fill();
+}
+
+// Infrastructure → Center
+drawLine('infra','center','#9B8EC4',false);
+// Build → Center
+drawLine('build','center','#C2CBB2',false);
+// Design → Build
+drawLine('designtools','build','#DDD4EE',true);
+// Frontend → Center
+drawLine('frontendtools','center','#C2CBB2',false);
+// Third party → Center
+drawLine('thirdparty','center','#A89B91',false);
+// Self-hosted → Center
+drawLine('selfhosted','center','#C2CBB2',true);
+// Social → Center
+drawLine('socialmarketing','center','#9B8EC4',true);
+// Automation → Center
+drawLine('automationtools','center','#A89B91',true);
+// Clients → Center
+drawLine('clients','center','#EDE7DF',false);
+// Operator → everything
+drawLine('operator','center','#3A3338',false);
+drawLine('operator','build','#3A3338',true);
+drawLine('operator','designtools','#3A3338',true);
+}
+
+window.addEventListener('load',()=>{setTimeout(drawConnections,200)});
+window.addEventListener('resize',drawConnections);
+</script>
+</body>
+</html>

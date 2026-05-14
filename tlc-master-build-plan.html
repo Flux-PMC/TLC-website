@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TLC Photography — Master Build Plan</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;1,300&family=Raleway:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#FAF7F4;color:#3A3338;font-family:'Raleway',sans-serif;font-weight:300;padding:40px 20px}
+h1,h2,h3,h4{font-family:'Cormorant Garamond',serif;font-weight:400}
+.page{max-width:900px;margin:0 auto}
+.header{text-align:center;margin-bottom:48px}
+.header h1{font-size:42px;letter-spacing:2px;margin-bottom:8px}
+.header .tagline{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;color:#9B8EC4;font-size:18px}
+.header .subtitle{font-size:14px;color:#A89B91;margin-top:16px;letter-spacing:1px;text-transform:uppercase}
+
+.phase{margin-bottom:56px}
+.phase-header{display:flex;align-items:baseline;gap:16px;margin-bottom:24px;padding-bottom:12px;border-bottom:2px solid #9B8EC4}
+.phase-header h2{font-size:28px}
+.phase-tag{font-size:11px;text-transform:uppercase;letter-spacing:2px;color:#A89B91}
+.phase-desc{font-size:14px;color:#A89B91;margin-bottom:24px;line-height:1.7}
+
+.task-card{background:#fff;border:1px solid #EDE7DF;border-radius:8px;margin-bottom:16px;overflow:hidden;transition:all 0.2s}
+.task-header{display:flex;align-items:center;gap:12px;padding:16px 20px;cursor:pointer;user-select:none}
+.task-header:hover{background:rgba(237,231,223,0.3)}
+.task-checkbox{width:22px;height:22px;min-width:22px;border:2px solid #C2CBB2;border-radius:4px;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+.task-checkbox.checked{background:#9B8EC4;border-color:#9B8EC4}
+.task-checkbox.checked::after{content:'✓';color:#FAF7F4;font-size:14px}
+.task-checkbox.pre{background:#C2CBB2;border-color:#C2CBB2}
+.task-checkbox.pre::after{content:'✓';color:#FAF7F4;font-size:14px}
+.task-title{flex:1;font-size:15px;font-weight:400}
+.task-meta{display:flex;gap:8px;align-items:center}
+.badge{font-size:10px;padding:2px 8px;border-radius:10px;text-transform:uppercase;letter-spacing:1px}
+.badge.cost-free{background:#C2CBB2;color:#3A3338}
+.badge.cost-low{background:#DDD4EE;color:#3A3338}
+.badge.cost-med{background:#EBD9CF;color:#3A3338}
+.badge.time-quick{background:#D6DCCA;color:#3A3338}
+.badge.time-med{background:#EDE7DF;color:#3A3338}
+.badge.time-long{background:#A89B91;color:#FAF7F4}
+.expand-icon{color:#A89B91;font-size:18px;transition:transform 0.2s}
+.task-card.open .expand-icon{transform:rotate(90deg)}
+
+.task-body{display:none;padding:0 20px 16px 54px;font-size:13px;line-height:1.8}
+.task-card.open .task-body{display:block}
+.subtask{display:flex;align-items:flex-start;gap:10px;padding:6px 0;border-bottom:1px solid rgba(237,231,223,0.4)}
+.subtask:last-child{border-bottom:none}
+.sub-checkbox{width:16px;height:16px;min-width:16px;border:1.5px solid #DDD4EE;border-radius:3px;display:flex;align-items:center;justify-content:center;cursor:pointer;margin-top:2px;transition:all 0.2s}
+.sub-checkbox.checked{background:#C2CBB2;border-color:#C2CBB2}
+.sub-checkbox.checked::after{content:'✓';color:#FAF7F4;font-size:10px}
+.sub-text{flex:1}
+.sub-text.checked{text-decoration:line-through;color:#A89B91}
+.tip{margin-top:12px;padding:10px 14px;background:#FAF7F4;border-left:3px solid #9B8EC4;font-size:12px;color:#8E7568;border-radius:0 4px 4px 0;line-height:1.6}
+.tip strong{color:#9B8EC4;font-weight:400;font-family:'Cormorant Garamond',serif;font-size:14px}
+.cost-line{margin-top:8px;font-size:12px;color:#A89B91}
+.dep-line{margin-top:4px;font-size:11px;color:#C08B76}
+
+.divider-vine{text-align:center;margin:48px 0;opacity:0.5}
+.footer{text-align:center;margin-top:48px;padding-top:24px;border-top:1px solid #EDE7DF}
+.footer p{font-size:12px;color:#A89B91;line-height:1.8}
+.footer .quote{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:18px;color:#9B8EC4;margin-bottom:12px}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="header">
+<svg width="120" height="50" viewBox="0 0 120 50" style="display:block;margin:0 auto 16px;opacity:0.6">
+<path d="M10 45 Q30 35 50 30 Q70 25 90 27 Q100 28 110 25" fill="none" stroke="#C2CBB2" stroke-width="1.5" stroke-linecap="round"/>
+<ellipse cx="50" cy="25" rx="7" ry="2.5" transform="rotate(-10 50 25)" fill="none" stroke="#C2CBB2" stroke-width="1"/>
+<ellipse cx="60" cy="28" rx="6" ry="2" transform="rotate(10 60 28)" fill="none" stroke="#C2CBB2" stroke-width="1"/>
+<ellipse cx="80" cy="24" rx="6" ry="2" transform="rotate(-5 80 24)" fill="none" stroke="#C2CBB2" stroke-width="1"/>
+<path d="M108 23 Q112 16 110 10" fill="none" stroke="#9B8EC4" stroke-width="1.2" stroke-linecap="round"/>
+<path d="M110 24 Q115 18 117 12" fill="none" stroke="#9B8EC4" stroke-width="1.2" stroke-linecap="round"/>
+<path d="M106 25 Q108 19 104 14" fill="none" stroke="#DDD4EE" stroke-width="1" stroke-linecap="round"/>
+</svg>
+<h1>TLC Photography</h1>
+<div class="tagline">Tender love lights the way.</div>
+<div class="subtitle">Master Build Plan</div>
+</div>
+
+<div id="plan"></div>
+
+<div class="footer">
+<div class="quote">"Every image is crafted to last a lifetime and be passed to the next."</div>
+<p>TLC Photography — Master Build Plan<br>Checkboxes save automatically. Click any task to expand details.</p>
+</div>
+</div>
+
+<script>
+const phases=[
+{
+title:"Phase 1 — Foundation",
+tag:"COMPLETE",
+desc:"Brand identity, design system, and planning. All decisions locked. This is the bedrock everything builds on.",
+tasks:[
+{title:"Brand Identity Package",done:true,cost:"Free",time:"Done",
+subs:["Color palettes (Lavender & Sage + Golden Hour)","Typography system (Cormorant Garamond, Raleway, Fraunces, Outfit)","Brand voice guidelines (4 rules + vocabulary lists)","Tagline: Tender love lights the way.","Bio (5 sentences, approved)","Tone register system (vendor / client 1-5 / marketing)","Design philosophy (Pressed Light)"],
+tip:"All locked. These don't change without a full brand review.",deps:""},
+{title:"Design System Documents",done:true,cost:"Free",time:"Done",
+subs:["DESIGN.md (Claude Design handoff, 291 lines)","Brand Style Guide PDF (14 pages)","Brand Decisions Log","Claude Project Brief (for content generation)","Gemini Brand Vibe Brief (for logo prompts)","Logo prompts for Gemini (6 prompts)","Session Context file"],
+tip:"DESIGN.md is the single source of truth for the website build. Everything references it.",deps:""},
+{title:"Infrastructure Accounts",done:true,cost:"Free",time:"Done",
+subs:["Cloudflare account + domain (tlc-photography.com)","Cloudflare email routing (admin@tlc-photography.com)","GitHub account + repo (flux-PMC/TLC-website)"],
+tip:"Cloudflare free tier covers DNS, Pages (hosting), Workers (serverless), R2 (10GB storage), and email routing. Zero cost.",deps:""},
+]},
+{
+title:"Phase 2 — Design & Logo",
+tag:"IN PROGRESS",
+desc:"Get the visual system approved through Claude Design and finalize the logo. These feed directly into the website build.",
+tasks:[
+{title:"Claude Design Setup",done:false,cost:"Free",time:"30 min",
+subs:["Fill out Claude Design form (company blurb)","Upload font files (8 .ttf files, 4 fonts × 2 weights)","Paste DESIGN.md content in notes field","Link GitHub repo","Review generated design system","Screenshot approved patterns for Claude Code"],
+tip:"Claude Design interprets the spec visually. Claude Code interprets it structurally. Let Design go first so Code has more to work from.",deps:"Font files downloaded"},
+{title:"Logo Finalization",done:false,cost:"Free",time:"2-4 hours",
+subs:["Review 4 Gemini concepts (Image 1 ranked best, Image 4 second)","Decide which concept(s) to refine","Run refinement prompts in Gemini (round 2)","Vectorize using StarVector, OmniSVG, or Illustrator Image Trace","Clean up vector paths in Illustrator","Export all formats: SVG, PNG (4 sizes), PDF, EPS, ICO, WEBP","Create both palette versions (Lavender & Sage + Golden Hour)","Define clear-space rules and minimum sizes"],
+tip:"StarVector was specifically trained on logo vectorization. Try it first. Illustrator Image Trace as backup. You need roughly 48 files total across all variants and formats.",deps:"Gemini access, GPU for vectorization models",cost_detail:"Free (you have Creative Suite and GPU)"},
+]},
+{
+title:"Phase 3 — Website Build",
+tag:"NEXT UP",
+desc:"The main event. Astro site with Keystatic CMS, deployed to Cloudflare Pages. Claude Code handles the build. You review and adjust.",
+tasks:[
+{title:"Project Scaffold & Config",done:false,cost:"Free",time:"1-2 hours",
+subs:["Initialize Astro project in Claude Code","Install dependencies (Fontsource, shadcn/ui, Lucide, Keystatic)","Configure astro.config.mjs","Set up Cloudflare Pages adapter","Connect Keystatic to GitHub repo","Configure content collections (blog posts, portfolio images)","Set up CSS custom properties for both palettes"],
+tip:"Start the Claude Code session in the tlc-photography-website folder with DESIGN.md and SESSION-CONTEXT.md as context. Claude Code reads those files and knows the full spec.",deps:"GitHub repo, Claude Design review done"},
+{title:"Twilight System (Palette + Font Swap)",done:false,cost:"Free",time:"2-3 hours",
+subs:["Implement getTransitionProgress() function","Set up 5 color waypoints (no muddy interpolation)","CSS custom property updates on 60-second interval","Font swap at transition boundary (400ms fade out, swap, 400ms fade in)","Preload all 4 font families on page load","Test at various simulated times"],
+tip:"This is the signature feature. The waypoints are already designed in the Decisions Log. Implementation is mechanical. Test by overriding the system clock.",deps:"CSS custom properties set up"},
+{title:"Page Builds (6 pages)",done:false,cost:"Free",time:"8-16 hours",
+subs:["Home: full-bleed hero, brand introduction, tagline","Portfolio: masonry grid, scroll-triggered reveals, staggered layout, lightbox","Services: session type cards, starting-at pricing, Calendly booking links","About: the story, California-to-Louisiana, Two Kinds of Light philosophy","Blog: post listing, individual post template, SEO-optimized","Contact: form (name, email, phone, message, all required), greyed submit until valid, Calendly embed below, Listmonk opt-in checkbox"],
+tip:"Portfolio needs motion and intrigue. Not a basic photo grid. Scroll-triggered reveals, staggered portrait/landscape mix, curated exhibit feel. This page sells the business.",deps:"Twilight system working, components built"},
+{title:"Contact Form Backend",done:false,cost:"Free",time:"1-2 hours",
+subs:["Create Cloudflare Worker for form submission","Validate all fields server-side","Send notification email via Cloudflare Email","POST to Listmonk API if opt-in checked","Rate limiting and spam protection","Success/error response handling"],
+tip:"Cloudflare Workers free tier: 100,000 requests/day. More than enough. The Worker handles validation, email notification, and Listmonk subscription in one function.",deps:"Listmonk running on home server"},
+{title:"Image Pipeline",done:false,cost:"Free",time:"1-2 hours",
+subs:["Set up Cloudflare R2 bucket for portfolio images","Configure image optimization (WebP, srcset, lazy loading)","Upload placeholder images for development","Define image naming conventions","Set up Keystatic media library pointing to R2"],
+tip:"R2 free tier: 10GB storage, zero egress fees. Portfolio images should be optimized before upload. Keep originals in a local archive, upload compressed versions.",deps:"Cloudflare R2 enabled"},
+{title:"SEO & Performance",done:false,cost:"Free",time:"2-3 hours",
+subs:["Meta tags (title, description, OG, Twitter cards)","Structured data (LocalBusiness schema, both locations)","Sitemap.xml generation","robots.txt","Core Web Vitals optimization","Image alt text strategy for Keystatic","Local SEO: target both Alexandria and Monroe metro areas"],
+tip:"Astro generates fast sites by default. The main performance risk is unoptimized images. Solve that in the image pipeline step. Structured data with both service areas from day one.",deps:"All pages built"},
+{title:"Deploy & Go Live",done:false,cost:"Free",time:"1 hour",
+subs:["Connect GitHub repo to Cloudflare Pages","Configure build command and output directory","Set custom domain (tlc-photography.com)","Verify SSL certificate","Test all pages on production URL","Verify Keystatic admin works in production"],
+tip:"Cloudflare Pages auto-deploys on every push to main. Preview URLs for every branch. Zero config SSL.",deps:"All pages built, SEO done"},
+]},
+{
+title:"Phase 4 — Services & Integrations",
+tag:"AFTER LAUNCH",
+desc:"Connect the third-party services that make the business run. These can happen incrementally after the site is live.",
+tasks:[
+{title:"Calendly Setup",done:false,cost:"Free tier available",time:"1 hour",
+subs:["Create Calendly account","Set up consultation event type","Configure availability (block personal time)","Embed on Contact page","Add booking links to Services page"],
+tip:"Free tier allows one event type. That's enough for a consultation booking. Upgrade later if you need multiple session types with different durations.",deps:"Website deployed"},
+{title:"Stripe Setup",done:false,cost:"2.9% + 30¢ per transaction",time:"1-2 hours",
+subs:["Create Stripe account","Set up payment links for session deposits","Configure invoice templates","Add payment links to booking confirmation emails"],
+tip:"Start with Stripe Payment Links (no code needed). You can build a custom checkout later if the volume justifies it. Deposits secure bookings without building a full e-commerce system.",deps:"Business bank account"},
+{title:"Pixieset Integration",done:false,cost:"Already in use",time:"30 min",
+subs:["Add Pixieset gallery link to post-session emails","Reference gallery delivery in Services page copy"],
+tip:"Pixieset stays separate from the main site. Clients get direct gallery links. No embedding needed.",deps:"Email templates written"},
+]},
+{
+title:"Phase 5 — Home Server & Self-Hosted Stack",
+tag:"SEPARATE SESSION",
+desc:"Your own server running Ghost, Listmonk, Shlink, and Umami. This is the email and analytics backbone.",
+tasks:[
+{title:"Home Server Setup",done:false,cost:"$0-150 (depends on hardware)",time:"4-8 hours",
+subs:["Evaluate hardware: Raspberry Pi 5 ($80), old laptop/desktop ($0), mini PC ($100-150)","Install Ubuntu Server or Debian","Harden SSH (key-only auth, no root login, fail2ban)","Set up UFW firewall (allow only 80, 443, SSH)","Configure dynamic DNS (free via Cloudflare API)","Set up Cloudflare Tunnel (zero-trust, no port forwarding needed)","Install Docker and Docker Compose","Set up automated backups (to R2 or local drive)"],
+tip:"Cloudflare Tunnel is the security game-changer. Your server never exposes ports to the internet. All traffic routes through Cloudflare's network. Free. No port forwarding, no exposed IP. Use whatever hardware you already have. An old laptop with 4GB RAM runs all four services comfortably.",deps:"Cloudflare account (you have this)",cost_detail:"$0 if you repurpose existing hardware. $80 for a Pi 5. $100-150 for a mini PC. Cloudflare Tunnel is free."},
+{title:"Ghost (Blog & Newsletter)",done:false,cost:"Free (self-hosted)",time:"2 hours",
+subs:["Deploy Ghost via Docker Compose","Configure custom domain (blog.tlc-photography.com or /blog)","Set up SMTP for newsletter sending","Design email template matching TLC brand","Connect RSS feed to social sharing"],
+tip:"Ghost self-hosted is free and handles both the blog engine and newsletter sending. The hosted version costs $9-25/mo. You're saving that by running it yourself.",deps:"Home server running"},
+{title:"Listmonk (Email List Management)",done:false,cost:"Free",time:"1-2 hours",
+subs:["Deploy Listmonk via Docker Compose","Configure subscriber lists","Set up double opt-in email template","Create API key for Cloudflare Worker integration","Design welcome email sequence"],
+tip:"Listmonk handles the subscriber database and bulk email. Ghost handles the blog content and individual newsletters. They complement, not compete.",deps:"Home server running, SMTP configured"},
+{title:"Umami (Analytics)",done:false,cost:"Free",time:"1 hour",
+subs:["Deploy Umami via Docker Compose","Add tracking script to Astro layout","Configure dashboard","Set up key events (form submit, Calendly click, gallery view)"],
+tip:"Umami is a privacy-first Google Analytics replacement. No cookies, no consent banner needed, GDPR compliant. Self-hosted means your data stays on your server.",deps:"Home server running, website deployed"},
+{title:"Shlink (Link Tracking)",done:false,cost:"Free",time:"30 min",
+subs:["Deploy Shlink via Docker Compose","Configure short domain (optional)","Create tracked links for social bios, print materials, email CTAs"],
+tip:"Shlink lets you see which marketing channels drive traffic. Short links in your Instagram bio, business cards, and emails all report back to one dashboard.",deps:"Home server running"},
+]},
+{
+title:"Phase 6 — Social & Marketing",
+tag:"ONGOING",
+desc:"Establish presence on social platforms and start the content engine. Most of this requires the logo first.",
+tasks:[
+{title:"Google Business Profile",done:false,cost:"Free",time:"1-2 hours",
+subs:["Create GBP listing","Add both service areas (Alexandria + Monroe)","Upload logo and brand photos","Write business description using approved bio","Set up categories (Photographer, Portrait Studio)","Configure Hermes agent for auto-replies (later)"],
+tip:"GBP is the single most important local SEO move for a service business. Do this as soon as the logo is ready. Verification can take 1-2 weeks.",deps:"Logo finalized, website live"},
+{title:"Social Media Profiles",done:false,cost:"Free",time:"1-2 hours",
+subs:["Facebook Business Page setup","Instagram Business Profile setup","Linktree (or self-hosted alternative via Shlink)","Consistent branding across all platforms (logo, bio, links)","3-5 launch posts scheduled"],
+tip:"Use the social media template specs from the brand guide. Lavender & Sage palette only for social. Watermark at 40-60% opacity, bottom center.",deps:"Logo finalized"},
+{title:"Content Calendar",done:false,cost:"Free",time:"2 hours",
+subs:["Plan first month of blog posts","Plan first month of social posts","Session spotlight template","Behind-the-scenes template","Seasonal content ideas (holiday minis, spring sessions)"],
+tip:"Write the what-to-wear guide first. It's useful content that also reduces pre-session anxiety for clients. Doubles as a blog post and a PDF sent with booking confirmations.",deps:"Brand voice locked (done), blog set up"},
+]},
+{
+title:"Phase 7 — Automation & AI",
+tag:"FUTURE",
+desc:"The systems that run without you. Build these once everything else is stable.",
+tasks:[
+{title:"Hermes Agents",done:false,cost:"Free (self-hosted)",time:"4-8 hours total",
+subs:["GBP auto-reply agent (responds to reviews, inquiries)","Email follow-up agent (post-session thank you, review request)","Post-session pipeline (gallery delivery → follow-up → review → testimonial)"],
+tip:"Build these one at a time. Start with the post-session pipeline because it directly drives reviews and repeat bookings. GBP replies can wait until you have enough traffic to justify automation.",deps:"Home server, email stack, website all running"},
+{title:"TLC Chatbot (Designed by Flux)",done:false,cost:"API costs (low)",time:"8-16 hours",
+subs:["Design conversation flows (FAQ, booking inquiry, pricing questions)","Train on TLC brand voice and approved copy","Deploy on website (corner widget or dedicated page)","Set escalation rules (when to hand off to a human)","Test with real client scenarios"],
+tip:"This is a Flux product. Build it after the website is stable and you have real client interaction patterns to train on. Premature automation frustrates clients.",deps:"Website live, enough client interactions to inform conversation design"},
+{title:"Private Review Collection",done:false,cost:"Free",time:"2 hours",
+subs:["Automated post-session email with review link","Private review form (not public)","Best reviews curated for testimonials section","Review approval workflow before publishing"],
+tip:"Reviews collected privately, best ones featured. Never auto-publish. The photographer should read every review and choose which to share.",deps:"Email follow-up agent working"},
+]},
+];
+
+const saved=JSON.parse(localStorage.getItem('tlc-master')||'{}');
+
+function render(){
+const container=document.getElementById('plan');
+container.innerHTML='';
+
+phases.forEach((phase,pi)=>{
+const pdiv=document.createElement('div');
+pdiv.className='phase';
+pdiv.innerHTML=`<div class="phase-header"><h2>${phase.title}</h2><span class="phase-tag">${phase.tag}</span></div><p class="phase-desc">${phase.desc}</p>`;
+
+phase.tasks.forEach((task,ti)=>{
+const key=`${pi}-${ti}`;
+const tKey=`t-${key}`;
+if(saved[tKey]!==undefined)task.checked=saved[tKey];
+else task.checked=task.done;
+
+const card=document.createElement('div');
+card.className='task-card';
+const isOpen=saved[`open-${key}`];
+if(isOpen)card.classList.add('open');
+
+const hdr=document.createElement('div');
+hdr.className='task-header';
+const cbClass=task.done?'task-checkbox pre':'task-checkbox'+(task.checked?' checked':'');
+let badges='';
+if(task.time)badges+=`<span class="badge ${task.time==='Done'?'cost-free':task.time.includes('hour')?'time-med':'time-quick'}">${task.time}</span>`;
+if(task.cost)badges+=`<span class="badge ${task.cost==='Free'||task.cost==='Free (self-hosted)'?'cost-free':task.cost.includes('$0')?'cost-free':'cost-low'}">${task.cost}</span>`;
+hdr.innerHTML=`<div class="${cbClass}"></div><div class="task-title">${task.title}</div><div class="task-meta">${badges}</div><div class="expand-icon">▸</div>`;
+
+hdr.querySelector('.task-checkbox').addEventListener('click',(e)=>{
+e.stopPropagation();
+task.checked=!task.checked;
+saved[tKey]=task.checked;
+localStorage.setItem('tlc-master',JSON.stringify(saved));
+render();
+});
+hdr.addEventListener('click',()=>{
+saved[`open-${key}`]=!saved[`open-${key}`];
+localStorage.setItem('tlc-master',JSON.stringify(saved));
+render();
+});
+
+const body=document.createElement('div');
+body.className='task-body';
+
+if(task.subs){
+task.subs.forEach((sub,si)=>{
+const sKey=`s-${key}-${si}`;
+let subChecked=saved[sKey]||false;
+const sd=document.createElement('div');
+sd.className='subtask';
+sd.innerHTML=`<div class="sub-checkbox${subChecked?' checked':''}"></div><div class="sub-text${subChecked?' checked':''}">${sub}</div>`;
+sd.querySelector('.sub-checkbox').addEventListener('click',()=>{
+subChecked=!subChecked;
+saved[sKey]=subChecked;
+localStorage.setItem('tlc-master',JSON.stringify(saved));
+render();
+});
+body.appendChild(sd);
+});
+}
+if(task.tip){
+body.innerHTML+=`<div class="tip"><strong>Tip: </strong>${task.tip}</div>`;
+}
+if(task.cost_detail){
+body.innerHTML+=`<div class="cost-line">Cost breakdown: ${task.cost_detail}</div>`;
+}
+if(task.deps){
+body.innerHTML+=`<div class="dep-line">Depends on: ${task.deps}</div>`;
+}
+
+card.appendChild(hdr);
+card.appendChild(body);
+pdiv.appendChild(card);
+});
+
+container.appendChild(pdiv);
+});
+}
+render();
+</script>
+</body>
+</html>

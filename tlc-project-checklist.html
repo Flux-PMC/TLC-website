@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TLC Photography — Project Checklist</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;1,300&family=Raleway:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#FAF7F4;color:#3A3338;font-family:'Raleway',sans-serif;font-weight:300;padding:40px 20px}
+h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:400}
+.page{max-width:800px;margin:0 auto}
+.header{text-align:center;margin-bottom:20px;position:relative}
+.header h1{font-size:42px;letter-spacing:2px;margin-bottom:8px}
+.header .tagline{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;color:#9B8EC4;font-size:18px}
+.header .subtitle{font-size:14px;color:#A89B91;margin-top:16px;letter-spacing:1px;text-transform:uppercase}
+
+.progress-container{margin:32px 0 48px;text-align:center}
+.progress-bar{width:100%;height:12px;background:#EDE7DF;border-radius:6px;overflow:hidden;margin-top:12px}
+.progress-fill{height:100%;background:linear-gradient(90deg,#C2CBB2,#9B8EC4);border-radius:6px;transition:width 0.5s ease}
+.progress-text{font-size:14px;color:#A89B91;margin-top:8px}
+.progress-count{font-family:'Cormorant Garamond',serif;font-size:28px;color:#9B8EC4}
+
+.section{margin-bottom:40px}
+.section-header{display:flex;align-items:center;gap:12px;margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid #EDE7DF}
+.section-header h2{font-size:24px;flex:1}
+.section-count{font-size:12px;color:#A89B91;background:#EDE7DF;padding:2px 10px;border-radius:10px}
+
+.item{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid rgba(237,231,223,0.5);cursor:pointer;user-select:none;transition:opacity 0.3s}
+.item:hover{background:rgba(237,231,223,0.2)}
+.item.checked{opacity:0.5}
+.item.checked .item-text{text-decoration:line-through;color:#A89B91}
+.checkbox{width:20px;height:20px;min-width:20px;border:2px solid #C2CBB2;border-radius:4px;display:flex;align-items:center;justify-content:center;margin-top:1px;transition:all 0.2s}
+.checkbox.checked{background:#9B8EC4;border-color:#9B8EC4}
+.checkbox.checked::after{content:'✓';color:#FAF7F4;font-size:13px;font-weight:400}
+.checkbox.pre-checked{background:#C2CBB2;border-color:#C2CBB2}
+.checkbox.pre-checked::after{content:'✓';color:#FAF7F4;font-size:13px;font-weight:400}
+.item-text{font-size:14px;line-height:1.6}
+.item-note{font-size:11px;color:#A89B91;margin-top:2px}
+
+.divider{width:60px;height:1px;background:#C2CBB2;margin:48px auto;position:relative}
+.divider::before{content:'';position:absolute;left:50%;top:-3px;transform:translateX(-50%);width:7px;height:7px;border-radius:50%;background:#9B8EC4}
+
+.footer{text-align:center;margin-top:48px;font-size:11px;color:#A89B91}
+
+svg.sprig{display:block;margin:0 auto 24px}
+</style>
+</head>
+<body>
+<div class="page">
+
+<svg class="sprig" width="120" height="60" viewBox="0 0 120 60">
+<path d="M10 55 Q30 40 50 35 Q70 30 90 32 Q100 33 110 30" fill="none" stroke="#C2CBB2" stroke-width="1.5" stroke-linecap="round"/>
+<ellipse cx="45" cy="30" rx="8" ry="3" transform="rotate(-15 45 30)" fill="none" stroke="#C2CBB2" stroke-width="1"/>
+<ellipse cx="55" cy="33" rx="7" ry="2.5" transform="rotate(10 55 33)" fill="none" stroke="#C2CBB2" stroke-width="1"/>
+<ellipse cx="75" cy="28" rx="7" ry="2.5" transform="rotate(-10 75 28)" fill="none" stroke="#C2CBB2" stroke-width="1"/>
+<ellipse cx="85" cy="31" rx="6" ry="2" transform="rotate(15 85 31)" fill="none" stroke="#C2CBB2" stroke-width="1"/>
+<path d="M108 28 Q112 20 110 14" fill="none" stroke="#9B8EC4" stroke-width="1.2" stroke-linecap="round"/>
+<path d="M110 29 Q116 22 118 16" fill="none" stroke="#9B8EC4" stroke-width="1.2" stroke-linecap="round"/>
+<path d="M106 30 Q108 24 104 18" fill="none" stroke="#DDD4EE" stroke-width="1" stroke-linecap="round"/>
+</svg>
+
+<div class="header">
+<h1>TLC Photography</h1>
+<div class="tagline">Tender love lights the way.</div>
+<div class="subtitle">Project Progress Checklist</div>
+</div>
+
+<div class="progress-container">
+<div class="progress-count" id="progressCount">0%</div>
+<div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+<div class="progress-text"><span id="doneCount">0</span> of <span id="totalCount">0</span> tasks complete</div>
+</div>
+
+<div id="checklist"></div>
+
+<div class="divider"></div>
+<div class="footer">
+TLC Photography — Project Tracker<br>
+Checkboxes save automatically in your browser.
+</div>
+</div>
+
+<script>
+const sections=[
+{title:"Brand Foundation",items:[
+{text:"Domain registered (tlc-photography.com)",done:true},
+{text:"Email routing (admin@tlc-photography.com)",done:true},
+{text:"GitHub repo created (flux-PMC/TLC-website)",done:true},
+{text:"Color palettes finalized (Lavender & Sage + Golden Hour)",done:true},
+{text:"Typography system locked (4 fonts, 2 stacks)",done:true},
+{text:"Twilight transition designed (30-min waypoints)",done:true},
+{text:"Font swap spec (400ms crossfade at 6:00)",done:true},
+{text:"Brand voice guidelines written",done:true},
+{text:"Tagline locked (Tender love lights the way.)",done:true},
+{text:"Bio written and approved",done:true},
+{text:"Design philosophy (Pressed Light)",done:true},
+{text:"Spacing & layout system (8px base)",done:true},
+{text:"Icon style defined (Lucide, 1.5px stroke)",done:true},
+{text:"Social media template specs",done:true},
+{text:"Print collateral defaults",done:true},
+{text:"Dark mode variants designed",done:true},
+{text:"Favicon & browser tab spec",done:true},
+{text:"Brand decisions log",done:true},
+{text:"Session context file",done:true},
+{text:"Claude Project Brief for content generation",done:true},
+{text:"Tone register system (vendor/client 1-5/marketing)",done:true},
+{text:"Gemini brand vibe brief",done:true},
+]},
+{title:"Design System",items:[
+{text:"DESIGN.md (Claude Design handoff, 291 lines)",done:true},
+{text:"Brand style guide PDF (14 pages)",done:true},
+{text:"Upload DESIGN.md to Claude Design",done:false},
+{text:"Upload font files to Claude Design",done:false},
+{text:"Review Claude Design output",done:false},
+{text:"Screenshot/export approved design patterns",done:false},
+]},
+{title:"Logo System",items:[
+{text:"Logo prompts written for Gemini (6 prompts)",done:true},
+{text:"Gemini concept generation (4 concepts reviewed)",done:true},
+{text:"Select final logo concept(s)",done:false},
+{text:"Refine in Gemini (round 2)",done:false},
+{text:"Vectorize (OmniSVG, StarVector, or Illustrator)",done:false},
+{text:"Export all formats (SVG, PNG, PDF, EPS, ICO, WEBP)",done:false},
+{text:"Define clear-space and usage rules",done:false},
+{text:"Generate favicon set from monogram",done:false},
+]},
+{title:"Website Build",items:[
+{text:"Scaffold Astro project",done:false},
+{text:"Configure Keystatic CMS",done:false},
+{text:"Install Fontsource fonts",done:false},
+{text:"Set up shadcn/ui components",done:false},
+{text:"Implement CSS custom properties (both palettes)",done:false},
+{text:"Build twilight transition JS",done:false},
+{text:"Build font swap JS",done:false},
+{text:"Home page (full-bleed hero, brand intro)",done:false},
+{text:"Portfolio page (masonry, scroll reveals, motion)",done:false},
+{text:"Services page (session types, starting-at pricing, Calendly links)",done:false},
+{text:"About page (story, California-to-Louisiana, Two Kinds of Light)",done:false},
+{text:"Blog page (SEO, spotlights, behind-the-scenes)",done:false},
+{text:"Contact page (form with validation, Calendly embed)",done:false},
+{text:"Listmonk opt-in checkbox on contact form",done:false},
+{text:"Contact form Cloudflare Worker (form handler)",done:false},
+{text:"Cloudflare R2 setup for portfolio images",done:false},
+{text:"SEO meta tags, Open Graph, structured data",done:false},
+{text:"Sitemap.xml and robots.txt",done:false},
+{text:"Responsive design (mobile, tablet, desktop)",done:false},
+{text:"Accessibility audit",done:false},
+{text:"Performance optimization (Core Web Vitals)",done:false},
+{text:"Deploy to Cloudflare Pages",done:false},
+{text:"Connect GitHub repo for auto-deploy",done:false},
+]},
+{title:"Third-Party Services",items:[
+{text:"Calendly account setup",done:false},
+{text:"Calendly embed on Contact page",done:false},
+{text:"Calendly links on Services page",done:false},
+{text:"Pixieset (already in use, link from site)",done:false},
+{text:"Stripe account setup (payments)",done:false},
+{text:"Stripe integration for deposits/invoices",done:false},
+]},
+{title:"Self-Hosted Stack (Home Server)",items:[
+{text:"Evaluate home server hardware options",done:false},
+{text:"Set up home server (OS, security, networking)",done:false},
+{text:"Install and configure Ghost (blog/newsletter)",done:false},
+{text:"Install and configure Listmonk (email lists)",done:false},
+{text:"Install and configure Shlink (link tracking)",done:false},
+{text:"Install and configure Umami (analytics)",done:false},
+{text:"Set up private email server",done:false},
+{text:"Configure reverse proxy and SSL",done:false},
+{text:"Set up automated backups",done:false},
+{text:"Connect Umami tracking to website",done:false},
+{text:"Connect Listmonk API to contact form Worker",done:false},
+]},
+{title:"Social & Marketing",items:[
+{text:"Google Business Profile (needs logo first)",done:false},
+{text:"Facebook Business Page",done:false},
+{text:"Instagram Business Profile",done:false},
+{text:"Linktree (or self-hosted alternative)",done:false},
+{text:"SEO keyword research (both metro areas)",done:false},
+{text:"Launch blog posts (3-5 initial)",done:false},
+{text:"Social media launch content",done:false},
+{text:"What-to-wear guide (sent with booking confirmation)",done:false},
+]},
+{title:"Automation & AI",items:[
+{text:"Hermes agent: GBP auto-replies",done:false},
+{text:"Hermes agent: email follow-ups",done:false},
+{text:"Hermes agent: post-session pipeline",done:false},
+{text:"TLC Chatbot (designed by Flux)",done:false},
+{text:"Private review collection system",done:false},
+{text:"Newsletter automation (Ghost + Listmonk)",done:false},
+]},
+{title:"Content & Copy",items:[
+{text:"Home page copy",done:false},
+{text:"Portfolio page copy",done:false},
+{text:"Services page copy (session descriptions, pricing)",done:false},
+{text:"About page copy (the full story)",done:false},
+{text:"Contact page copy",done:false},
+{text:"Blog post templates",done:false},
+{text:"Email templates (inquiry response, booking confirmation, gallery delivery)",done:false},
+{text:"Session prep materials",done:false},
+]},
+{title:"Future & Quality of Life",items:[
+{text:"Custom Claude skill for TLC brand tone management",done:false},
+{text:"Spin-off session prompts document",done:false},
+{text:"Client CRM (track bookings, history, preferences)",done:false},
+{text:"Accounting integration (QuickBooks Self-Employed or Wave)",done:false},
+{text:"Contract/agreement templates (digital signing)",done:false},
+{text:"Backup & disaster recovery plan",done:false},
+{text:"Annual brand review process",done:false},
+]},
+];
+
+const saved=JSON.parse(localStorage.getItem('tlc-checklist')||'{}');
+
+function render(){
+const container=document.getElementById('checklist');
+container.innerHTML='';
+let total=0,done=0;
+
+sections.forEach((sec,si)=>{
+let secDone=0;
+sec.items.forEach((item,ii)=>{
+const key=si+'-'+ii;
+if(saved[key]!==undefined)item.checked=saved[key];
+else item.checked=item.done;
+total++;
+if(item.checked){done++;secDone++;}
+});
+
+const div=document.createElement('div');
+div.className='section';
+div.innerHTML=`<div class="section-header"><h2>${sec.title}</h2><span class="section-count">${secDone}/${sec.items.length}</span></div>`;
+
+sec.items.forEach((item,ii)=>{
+const key=si+'-'+ii;
+const row=document.createElement('div');
+row.className='item'+(item.checked?' checked':'');
+const cbClass=item.done&&!saved.hasOwnProperty(key)?'checkbox pre-checked':'checkbox'+(item.checked?' checked':'');
+row.innerHTML=`<div class="${cbClass}"></div><div><div class="item-text">${item.text}</div></div>`;
+row.addEventListener('click',()=>{
+item.checked=!item.checked;
+saved[key]=item.checked;
+localStorage.setItem('tlc-checklist',JSON.stringify(saved));
+render();
+});
+div.appendChild(row);
+});
+container.appendChild(div);
+});
+
+const pct=Math.round(done/total*100);
+document.getElementById('progressCount').textContent=pct+'%';
+document.getElementById('progressFill').style.width=pct+'%';
+document.getElementById('doneCount').textContent=done;
+document.getElementById('totalCount').textContent=total;
+}
+render();
+</script>
+</body>
+</html>
