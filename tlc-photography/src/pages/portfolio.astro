@@ -1,5 +1,47 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionWrapper from '../components/SectionWrapper.astro';
+import SageAccent from '../components/SageAccent.astro';
+import PortfolioGrid from '../components/PortfolioGrid';
+
+// Wire up Keystatic portfolio collection when content is available.
+// const reader = createReader(process.cwd(), keystaticConfig);
+// const portfolio = await reader.collections.portfolio.all();
+const portfolioImages: Array<{ title: string; src: string; alt: string; category: string }> = [];
 ---
 
-<BaseLayout title="Portfolio — TLC Photography" />
+<BaseLayout
+  title="Portfolio — TLC Photography"
+  description="Browse TLC Photography's curated portrait portfolio. Families, couples, seniors, newborns, maternity, and engagement sessions in Louisiana."
+>
+  <SectionWrapper>
+    <h1 class="page-title">Portfolio</h1>
+    <SageAccent />
+
+    <div style="margin-top: var(--space-xl);">
+      {portfolioImages.length > 0 ? (
+        <PortfolioGrid client:visible images={portfolioImages} />
+      ) : (
+        <p class="empty-message">Portfolio images coming soon.</p>
+      )}
+    </div>
+  </SectionWrapper>
+</BaseLayout>
+
+<style>
+  .page-title {
+    font-family: var(--font-heading);
+    font-size: var(--text-h1);
+    font-weight: 400;
+    color: var(--color-text-primary);
+    margin: 0 0 var(--space-md);
+    line-height: 1.2;
+  }
+
+  .empty-message {
+    font-family: var(--font-body);
+    font-size: var(--text-body);
+    color: var(--color-neutral);
+    margin: var(--space-xl) 0 0;
+  }
+</style>

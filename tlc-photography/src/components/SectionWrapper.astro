@@ -1,0 +1,47 @@
+---
+interface Props {
+  bg?: string;
+  class?: string;
+}
+
+const { bg, class: className } = Astro.props;
+---
+
+<section
+  class:list={['section-wrapper', className]}
+  style={bg ? `background-color: ${bg};` : ''}
+>
+  <div class="section-inner">
+    <slot />
+  </div>
+</section>
+
+<style>
+  .section-wrapper {
+    padding-top: var(--space-3xl);
+    padding-bottom: var(--space-3xl);
+    padding-left: var(--margin-mobile);
+    padding-right: var(--margin-mobile);
+  }
+
+  .section-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+  }
+
+  @media (min-width: 768px) {
+    .section-wrapper {
+      padding-left: var(--margin-tablet);
+      padding-right: var(--margin-tablet);
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .section-wrapper {
+      padding-top: var(--space-4xl);
+      padding-bottom: var(--space-4xl);
+      padding-left: var(--margin-desktop);
+      padding-right: var(--margin-desktop);
+    }
+  }
+</style>

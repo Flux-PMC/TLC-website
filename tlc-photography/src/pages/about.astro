@@ -1,5 +1,163 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionWrapper from '../components/SectionWrapper.astro';
+import SageAccent from '../components/SageAccent.astro';
+import CalendlyButton from '../components/CalendlyButton.astro';
 ---
 
-<BaseLayout title="About — TLC Photography" />
+<BaseLayout
+  title="About — TLC Photography"
+  description="The story behind TLC Photography — a California transplant who chose Louisiana, chases real moments, and photographs the light between."
+>
+  <SectionWrapper>
+    <h1 class="page-title">About</h1>
+    <SageAccent />
+  </SectionWrapper>
+
+  <!-- Section 1: text left, image right -->
+  <SectionWrapper>
+    <div class="split-section">
+      <div class="split-text">
+        <h2 class="split-heading">She came from California.</h2>
+        <p class="split-body">
+          TLC Photography is the work of a photographer who traded the Pacific coast for Louisiana live oaks and never looked back. The South wasn't a detour — it was the destination. The light here is different. The people are unhurried. The moments feel earned.
+        </p>
+        <p class="split-body">
+          She photographs families, couples, newborns, and graduating seniors — always chasing the moment after the pose, when the guard drops and something real surfaces.
+        </p>
+      </div>
+      <div class="split-image" aria-hidden="true">
+        <div class="image-placeholder"></div>
+      </div>
+    </div>
+  </SectionWrapper>
+
+  <!-- Section 2: image left, text right -->
+  <SectionWrapper bg="var(--color-surface)">
+    <div class="split-section split-section--reverse">
+      <div class="split-image" aria-hidden="true">
+        <div class="image-placeholder"></div>
+      </div>
+      <div class="split-text">
+        <h2 class="split-heading">Two Kinds of Light.</h2>
+        <p class="split-body">
+          There's the light you find at 7 AM, when everything is cool and sharp. And there's the light at 6 PM, when everything turns gold and soft. TLC works in both. The website itself shifts between the two — the design changes with the time of day, because the brand is built around the idea that light tells time.
+        </p>
+        <p class="split-body">
+          Every image is crafted to last a lifetime and be passed to the next.
+        </p>
+      </div>
+    </div>
+  </SectionWrapper>
+
+  <!-- Section 3: text left, image right -->
+  <SectionWrapper>
+    <div class="split-section">
+      <div class="split-text">
+        <h2 class="split-heading">The work is quiet.</h2>
+        <p class="split-body">
+          No dramatic edits. No manufactured nostalgia. Just light, people, and the truth of a moment. TLC's editing style is clean and film-adjacent — warm where the scene was warm, cool where the scene was cool.
+        </p>
+        <p class="split-body">
+          Her fiancé handles the business so she can stay behind the camera. That's the whole model: one photographer, full attention, every session.
+        </p>
+        <div style="margin-top: var(--space-xl);">
+          <CalendlyButton description="Schedule a free consultation to discuss your session." />
+        </div>
+      </div>
+      <div class="split-image" aria-hidden="true">
+        <div class="image-placeholder"></div>
+      </div>
+    </div>
+  </SectionWrapper>
+</BaseLayout>
+
+<style>
+  .page-title {
+    font-family: var(--font-heading);
+    font-size: var(--text-h1);
+    font-weight: 400;
+    color: var(--color-text-primary);
+    margin: 0 0 var(--space-md);
+    line-height: 1.2;
+  }
+
+  .split-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+    align-items: start;
+  }
+
+  /* Image first on mobile */
+  .split-section .split-image {
+    order: -1;
+    width: 100%;
+  }
+
+  .split-section--reverse .split-image {
+    order: -1;
+    width: 100%;
+  }
+
+  .split-text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    width: 100%;
+  }
+
+  .split-heading {
+    font-family: var(--font-heading);
+    font-size: var(--text-h2);
+    font-weight: 400;
+    color: var(--color-text-primary);
+    margin: 0;
+    line-height: 1.25;
+  }
+
+  .split-body {
+    font-family: var(--font-body);
+    font-size: var(--text-body);
+    font-weight: 300;
+    color: var(--color-text-primary);
+    line-height: 1.8;
+    margin: 0;
+  }
+
+  .image-placeholder {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    background-color: var(--color-surface);
+    border-radius: 4px;
+  }
+
+  @media (min-width: 768px) {
+    .split-section {
+      display: grid;
+      grid-template-columns: 5fr 7fr;
+      gap: var(--space-2xl);
+      align-items: center;
+    }
+
+    .split-section .split-text {
+      order: 0;
+    }
+
+    .split-section .split-image {
+      order: 0;
+    }
+
+    .split-section--reverse {
+      grid-template-columns: 7fr 5fr;
+    }
+
+    .split-section--reverse .split-image {
+      order: -1;
+    }
+
+    .split-section--reverse .split-text {
+      order: 0;
+    }
+  }
+</style>

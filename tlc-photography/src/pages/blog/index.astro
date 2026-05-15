@@ -1,5 +1,77 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionWrapper from '../../components/SectionWrapper.astro';
+import SageAccent from '../../components/SageAccent.astro';
+import BlogCard from '../../components/BlogCard.astro';
+
+// Wire up Keystatic posts collection when content is available.
+// const reader = createReader(process.cwd(), keystaticConfig);
+// const allPosts = await reader.collections.posts.all();
+// const posts = allPosts.filter(p => p.entry.published).sort(...)
+const posts: Array<{
+  slug: string;
+  entry: { title: string; date: string; excerpt: string; coverImage: string };
+}> = [];
 ---
 
-<BaseLayout title="Blog — TLC Photography" />
+<BaseLayout
+  title="Journal — TLC Photography"
+  description="Stories, session spotlights, and behind-the-scenes from TLC Photography in Louisiana."
+>
+  <SectionWrapper>
+    <h1 class="page-title">Journal</h1>
+    <SageAccent />
+
+    {posts.length > 0 ? (
+      <div class="blog-grid" style="margin-top: var(--space-xl);">
+        {posts.map((post) => (
+          <BlogCard
+            title={post.entry.title}
+            date={post.entry.date}
+            excerpt={post.entry.excerpt}
+            coverImage={post.entry.coverImage}
+            slug={post.slug}
+          />
+        ))}
+      </div>
+    ) : (
+      <p class="empty-message">Stories coming soon.</p>
+    )}
+  </SectionWrapper>
+</BaseLayout>
+
+<style>
+  .page-title {
+    font-family: var(--font-heading);
+    font-size: var(--text-h1);
+    font-weight: 400;
+    color: var(--color-text-primary);
+    margin: 0 0 var(--space-md);
+    line-height: 1.2;
+  }
+
+  .blog-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+  }
+
+  .empty-message {
+    font-family: var(--font-body);
+    font-size: var(--text-body);
+    color: var(--color-neutral);
+    margin: var(--space-xl) 0 0;
+  }
+
+  @media (min-width: 768px) {
+    .blog-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .blog-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>

@@ -1,5 +1,127 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionWrapper from '../components/SectionWrapper.astro';
+import SageAccent from '../components/SageAccent.astro';
+import CalendlyButton from '../components/CalendlyButton.astro';
+import SessionTypeCards from '../components/SessionTypeCards';
+import ServiceCards from '../components/ServiceCards';
+
+const allSessions = [
+  {
+    name: 'Families',
+    description: 'Relaxed outdoor and in-home sessions for families of all sizes and ages, including extended families and beloved pets.',
+    image: '',
+    startingPrice: 'Contact for pricing',
+  },
+  {
+    name: 'Couples',
+    description: 'Intimate portraits for couples at any stage — engagements, anniversaries, maternity, or simply because.',
+    image: '',
+    startingPrice: 'Contact for pricing',
+  },
+  {
+    name: 'Seniors',
+    description: 'A milestone this significant deserves more than a backdrop. Senior sessions that feel true to who you are right now.',
+    image: '',
+    startingPrice: 'Contact for pricing',
+  },
+  {
+    name: 'Newborns',
+    description: 'Gentle, unhurried sessions in the first weeks of life. Your home or a quiet studio setting.',
+    image: '',
+    startingPrice: 'Contact for pricing',
+  },
+  {
+    name: 'Maternity',
+    description: 'Portraits celebrating this particular chapter — unhurried and entirely yours.',
+    image: '',
+    startingPrice: 'Contact for pricing',
+  },
+  {
+    name: 'Engagements',
+    description: 'Before the wedding, a session to settle into the camera together. A way to remember exactly who you were.',
+    image: '',
+    startingPrice: 'Contact for pricing',
+  },
+];
 ---
 
-<BaseLayout title="Services — TLC Photography" />
+<BaseLayout
+  title="Services — TLC Photography"
+  description="Portrait sessions for families, couples, seniors, newborns, maternity, and engagements in Louisiana. Starting prices and session details."
+>
+  <SectionWrapper>
+    <h1 class="page-title">Services</h1>
+    <SageAccent />
+    <p class="page-intro">
+      Every session starts with a conversation. TLC photographs the moment after the pose — when the real thing surfaces. Below you'll find the session types available and what each one looks like.
+    </p>
+
+    {/* SessionQuiz island — built in Task 8. Do not remove this comment. */}
+
+    <div style="margin-top: var(--space-2xl);">
+      <h2 class="section-heading">Session Types</h2>
+      <SessionTypeCards client:visible sessions={allSessions} />
+    </div>
+  </SectionWrapper>
+
+  <SectionWrapper bg="var(--color-surface)">
+    <h2 class="section-heading">What to Expect</h2>
+    <SageAccent />
+    <div style="margin-top: var(--space-xl);">
+      <ServiceCards client:visible services={allSessions} />
+    </div>
+  </SectionWrapper>
+
+  <SectionWrapper>
+    <SageAccent />
+    <div style="margin-top: var(--space-xl);">
+      <h2 class="section-heading">Ready to Begin?</h2>
+      <p class="section-body">
+        Book a free 15-minute consultation to talk through what you have in mind. No pressure, just a conversation.
+      </p>
+      <div style="margin-top: var(--space-lg);">
+        <CalendlyButton description="Schedule a free consultation to discuss your session." />
+      </div>
+    </div>
+  </SectionWrapper>
+</BaseLayout>
+
+<style>
+  .page-title {
+    font-family: var(--font-heading);
+    font-size: var(--text-h1);
+    font-weight: 400;
+    color: var(--color-text-primary);
+    margin: 0 0 var(--space-md);
+    line-height: 1.2;
+  }
+
+  .page-intro {
+    font-family: var(--font-body);
+    font-size: var(--text-body);
+    font-weight: 300;
+    color: var(--color-text-primary);
+    line-height: 1.8;
+    margin: var(--space-xl) 0 0;
+    max-width: 640px;
+  }
+
+  .section-heading {
+    font-family: var(--font-heading);
+    font-size: var(--text-h2);
+    font-weight: 400;
+    color: var(--color-text-primary);
+    margin: 0 0 var(--space-md);
+  }
+
+  .section-body {
+    font-family: var(--font-body);
+    font-size: var(--text-body);
+    font-weight: 300;
+    color: var(--color-text-primary);
+    line-height: 1.8;
+    margin: var(--space-md) 0 0;
+    max-width: 520px;
+  }
+</style>

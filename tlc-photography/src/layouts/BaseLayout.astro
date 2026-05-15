@@ -10,6 +10,9 @@ import '@fontsource/outfit/300.css';
 import '@fontsource/outfit/400.css';
 import '../styles/global.css';
 import PaletteManager from '../components/PaletteManager';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import SkipLink from '../components/SkipLink.astro';
 
 interface Props {
   title?: string;
@@ -28,37 +31,19 @@ const { title = 'TLC Photography', description = '' } = Astro.props;
   </head>
   <body>
     <PaletteManager client:only="react" />
-    <header></header>
+    <SkipLink />
+    <Header />
 
-    <main>
-      <div
-        class="mx-auto w-full max-w-site"
-        style="padding-left: var(--margin-mobile); padding-right: var(--margin-mobile);"
-      >
-        <slot />
-      </div>
+    <main id="main-content">
+      <slot />
     </main>
 
-    <footer></footer>
+    <Footer />
   </body>
 </html>
 
 <style>
   main {
-    min-height: 100vh;
-  }
-
-  @media (min-width: 768px) {
-    main > div {
-      padding-left: var(--margin-tablet);
-      padding-right: var(--margin-tablet);
-    }
-  }
-
-  @media (min-width: 1200px) {
-    main > div {
-      padding-left: var(--margin-desktop);
-      padding-right: var(--margin-desktop);
-    }
+    min-height: 60vh;
   }
 </style>

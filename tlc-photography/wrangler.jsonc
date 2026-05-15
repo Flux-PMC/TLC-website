@@ -1,0 +1,8 @@
+{
+  "send_email": [
+    {
+      "name": "CONTACT_EMAIL",
+      "destination_address": "admin@tlc-photography.com"
+    }
+  ]
+}

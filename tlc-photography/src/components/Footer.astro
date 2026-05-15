@@ -1,0 +1,229 @@
+---
+const NAV_LINKS = [
+  { href: '/portfolio', label: 'Portfolio' },
+  { href: '/services', label: 'Services' },
+  { href: '/about', label: 'About' },
+  { href: '/blog', label: 'Blog' },
+  { href: '/contact', label: 'Contact' },
+];
+---
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-main">
+
+      <div class="footer-brand">
+        <span class="footer-name">TLC Photography</span>
+        <span class="footer-tagline">Tender love lights the way.</span>
+        <a href="mailto:admin@tlc-photography.com" class="footer-email">
+          admin@tlc-photography.com
+        </a>
+      </div>
+
+      <nav class="footer-nav" aria-label="Footer navigation">
+        {NAV_LINKS.map((link) => (
+          <a href={link.href} class="footer-nav-link">
+            {link.label}
+          </a>
+        ))}
+      </nav>
+
+      <div class="footer-social">
+        <a href="#" class="social-link" aria-label="Instagram">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+            <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+          </svg>
+        </a>
+        <a href="#" class="social-link" aria-label="Facebook">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+          </svg>
+        </a>
+      </div>
+
+    </div>
+
+    <div class="footer-divider"></div>
+
+    <div class="footer-bottom">
+      <span>© 2026 TLC Photography. All rights reserved.</span>
+      <span class="separator"> · </span>
+      <a href="/legal" class="legal-link">Legal & Privacy</a>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background-color: var(--color-botanical-2);
+    color: var(--color-text-primary);
+  }
+
+  .footer-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 var(--margin-mobile);
+  }
+
+  .footer-main {
+    padding: var(--space-xl) 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-xl);
+    text-align: center;
+  }
+
+  .footer-brand {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .footer-name {
+    font-family: var(--font-heading);
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--color-text-primary);
+  }
+
+  .footer-tagline {
+    font-family: var(--font-subheading);
+    font-size: var(--text-small);
+    font-style: italic;
+    font-weight: 300;
+    color: var(--color-neutral);
+  }
+
+  .footer-email {
+    font-family: var(--font-body);
+    font-size: var(--text-small);
+    color: var(--color-text-primary);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-email:hover {
+    color: var(--color-accent);
+  }
+
+  .footer-nav {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    align-items: center;
+  }
+
+  .footer-nav-link {
+    font-family: var(--font-ui);
+    font-size: var(--text-small);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    text-decoration: none;
+    color: var(--color-text-primary);
+    transition: color 0.2s;
+  }
+
+  .footer-nav-link:hover {
+    color: var(--color-accent);
+  }
+
+  .footer-social {
+    display: flex;
+    gap: var(--space-md);
+  }
+
+  .social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    min-width: 44px;
+    color: var(--color-text-primary);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .social-link:hover {
+    color: var(--color-accent);
+  }
+
+  .social-link:focus-visible {
+    outline: 2px solid var(--color-accent-light);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  .footer-divider {
+    height: 1px;
+    background-color: var(--color-botanical-1);
+  }
+
+  .footer-bottom {
+    padding: var(--space-lg) 0;
+    text-align: center;
+    font-family: var(--font-body);
+    font-size: 13px;
+    color: var(--color-neutral);
+  }
+
+  .separator {
+    color: var(--color-neutral);
+  }
+
+  .legal-link {
+    color: var(--color-neutral);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .legal-link:hover {
+    color: var(--color-accent);
+  }
+
+  @media (min-width: 768px) {
+    .footer-inner {
+      padding: 0 var(--margin-tablet);
+    }
+
+    .footer-main {
+      padding: var(--space-2xl) 0;
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: space-between;
+      text-align: left;
+    }
+
+    .footer-nav {
+      align-items: center;
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .footer-inner {
+      padding: 0 var(--margin-desktop);
+    }
+  }
+</style>

@@ -1,9 +1,125 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionWrapper from '../../components/SectionWrapper.astro';
+import SageAccent from '../../components/SageAccent.astro';
 
+// Wire up Keystatic posts collection when content is available.
+// const reader = createReader(process.cwd(), keystaticConfig);
 export function getStaticPaths() {
+  // Returns empty until blog posts are added via Keystatic.
   return [];
 }
+
+interface Props {
+  slug?: string;
+}
+
+const { slug } = Astro.params;
 ---
 
-<BaseLayout title="TLC Photography" />
+<BaseLayout title="Post — TLC Photography">
+  <SectionWrapper>
+    <!-- Breadcrumb -->
+    <nav aria-label="Breadcrumb" class="breadcrumb">
+      <a href="/" class="breadcrumb-link">Home</a>
+      <span class="breadcrumb-sep" aria-hidden="true"> / </span>
+      <a href="/blog" class="breadcrumb-link">Journal</a>
+      <span class="breadcrumb-sep" aria-hidden="true"> / </span>
+      <span class="breadcrumb-current">{slug}</span>
+    </nav>
+
+    <!-- Cover image placeholder -->
+    <div class="cover-image" aria-hidden="true"></div>
+
+    <div class="post-body">
+      <h1 class="post-title">Post title</h1>
+      <p class="post-date">Date</p>
+      <SageAccent />
+      <div class="post-content">
+        <p>Post content will appear here when blog posts are added via Keystatic.</p>
+      </div>
+    </div>
+  </SectionWrapper>
+</BaseLayout>
+
+<style>
+  .breadcrumb {
+    font-family: var(--font-ui);
+    font-size: var(--text-small);
+    margin-bottom: var(--space-xl);
+  }
+
+  .breadcrumb-link {
+    color: var(--color-accent);
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+
+  .breadcrumb-link:hover {
+    opacity: 0.75;
+  }
+
+  .breadcrumb-sep {
+    color: var(--color-neutral);
+    margin: 0 4px;
+  }
+
+  .breadcrumb-current {
+    color: var(--color-neutral);
+  }
+
+  .cover-image {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background-color: var(--color-surface);
+    border-radius: 4px;
+    margin-bottom: var(--space-xl);
+  }
+
+  .post-body {
+    max-width: 720px;
+  }
+
+  .post-title {
+    font-family: var(--font-heading);
+    font-size: var(--text-h1);
+    font-weight: 400;
+    color: var(--color-text-primary);
+    margin: 0 0 var(--space-md);
+    line-height: 1.25;
+  }
+
+  .post-date {
+    font-family: var(--font-body);
+    font-size: var(--text-small);
+    color: var(--color-neutral);
+    margin: 0 0 var(--space-xl);
+  }
+
+  .post-content {
+    font-family: var(--font-body);
+    font-size: var(--text-body);
+    font-weight: 300;
+    color: var(--color-text-primary);
+    line-height: 1.8;
+    margin-top: var(--space-xl);
+  }
+
+  .post-content p {
+    margin: 0 0 var(--space-lg);
+  }
+
+  .post-content h2 {
+    font-family: var(--font-heading);
+    font-size: var(--text-h2);
+    font-weight: 400;
+    margin: var(--space-2xl) 0 var(--space-md);
+  }
+
+  .post-content h3 {
+    font-family: var(--font-heading);
+    font-size: var(--text-h3);
+    font-weight: 400;
+    margin: var(--space-xl) 0 var(--space-md);
+  }
+</style>

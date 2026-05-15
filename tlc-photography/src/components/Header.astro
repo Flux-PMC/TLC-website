@@ -1,0 +1,132 @@
+---
+import MobileNav from './MobileNav';
+
+const currentPath = Astro.url.pathname;
+
+const NAV_LINKS = [
+  { href: '/portfolio', label: 'Portfolio' },
+  { href: '/services', label: 'Services' },
+  { href: '/about', label: 'About' },
+  { href: '/blog', label: 'Blog' },
+  { href: '/contact', label: 'Contact' },
+];
+
+const isActive = (href: string) =>
+  currentPath === href || (href !== '/' && currentPath.startsWith(href));
+---
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="/" class="logo-link" aria-label="TLC Photography home">
+      <img
+        src="/TLC-logo.svg"
+        alt="TLC Photography"
+        width="auto"
+        height="40"
+        style="height: 40px; width: auto;"
+      />
+    </a>
+
+    <nav class="desktop-nav" aria-label="Main navigation">
+      {NAV_LINKS.map((link) => (
+        <a
+          href={link.href}
+          class={`nav-link${isActive(link.href) ? ' active' : ''}`}
+          aria-current={isActive(link.href) ? 'page' : undefined}
+        >
+          {link.label}
+        </a>
+      ))}
+    </nav>
+
+    <div class="mobile-trigger">
+      <MobileNav client:load currentPath={currentPath} />
+    </div>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: var(--color-surface);
+    border-bottom: 0.5px solid var(--color-botanical-1);
+  }
+
+  .header-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 var(--margin-mobile);
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logo-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+
+  .desktop-nav {
+    display: none;
+    align-items: center;
+    gap: var(--space-xl);
+  }
+
+  .nav-link {
+    font-family: var(--font-ui);
+    font-size: var(--text-button);
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    text-decoration: none;
+    color: var(--color-text-primary);
+    padding-bottom: 2px;
+    transition: color 0.2s;
+    white-space: nowrap;
+  }
+
+  .nav-link:hover {
+    color: var(--color-accent);
+  }
+
+  .nav-link.active {
+    color: var(--color-accent);
+    border-bottom: 1.5px solid var(--color-accent);
+  }
+
+  .nav-link:focus-visible {
+    outline: 2px solid var(--color-accent-light);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  .mobile-trigger {
+    display: flex;
+    align-items: center;
+  }
+
+  @media (min-width: 768px) {
+    .header-inner {
+      padding: 0 var(--margin-tablet);
+    }
+
+    .desktop-nav {
+      display: flex;
+    }
+
+    .mobile-trigger {
+      display: none;
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .header-inner {
+      padding: 0 var(--margin-desktop);
+    }
+  }
+</style>

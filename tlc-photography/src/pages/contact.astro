@@ -1,5 +1,128 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionWrapper from '../components/SectionWrapper.astro';
+import SageAccent from '../components/SageAccent.astro';
+import CalendlyButton from '../components/CalendlyButton.astro';
+import ContactForm from '../components/ContactForm';
+import FAQAccordion from '../components/FAQAccordion';
+import ChatButton from '../components/ChatButton';
+
+// Wire up Keystatic FAQ collection and site settings when content is available.
+const faqItems = [
+  {
+    question: 'What should we wear to our session?',
+    answer:
+      "Wear what makes you feel like yourself. Coordinating tones work better than identical outfits — think about colors that sit next to each other in the same range. Avoid large logos and neon colors that tend to draw the eye away from faces. If you're unsure, send a photo and we can talk through it.",
+  },
+  {
+    question: 'How long until we receive our photos?',
+    answer:
+      '12 fully edited, high-resolution images are delivered via private Pixieset gallery within 2–3 weeks of your session. The gallery stays active for 90 days. Rush editing (48-hour turnaround) is available for an additional fee if requested before the session.',
+  },
+  {
+    question: 'Do you travel for sessions?',
+    answer:
+      'Yes. TLC serves central and northeast Louisiana and is available for travel beyond that for the right project. Travel fees apply for sessions outside a 30-mile radius. Contact us to discuss specifics.',
+  },
+  {
+    question: "What's included in a session?",
+    answer:
+      '12 fully edited, high-resolution images with full personal print rights. Images are delivered via private Pixieset gallery. Additional edited images are available after delivery at $12 per image. A full Photography Service Agreement is provided before any session is confirmed.',
+  },
+];
+
+const chatbotUrl = '';
 ---
 
-<BaseLayout title="Contact — TLC Photography" />
+<BaseLayout
+  title="Contact — TLC Photography"
+  description="Get in touch with TLC Photography to book a portrait session, ask a question, or schedule a free consultation."
+>
+  <SectionWrapper>
+    <h1 class="page-title">Get in Touch</h1>
+    <SageAccent />
+
+    <div class="contact-layout">
+      <div class="contact-form-card">
+        <ContactForm client:only="react" />
+      </div>
+
+      <div class="contact-sidebar">
+        <p class="sidebar-body">
+          Prefer to talk it through first? Book a free 15-minute consultation — no commitment, just a conversation about what you have in mind.
+        </p>
+        <div style="margin-top: var(--space-lg);">
+          <CalendlyButton
+            description="Schedule a free consultation to discuss your session."
+          />
+        </div>
+      </div>
+    </div>
+  </SectionWrapper>
+
+  <SectionWrapper bg="var(--color-surface)">
+    <h2 class="section-heading">Common Questions</h2>
+    <SageAccent />
+    <div style="margin-top: var(--space-xl);">
+      <FAQAccordion client:visible items={faqItems} />
+    </div>
+  </SectionWrapper>
+
+  <ChatButton client:only="react" chatbotUrl={chatbotUrl} />
+</BaseLayout>
+
+<style>
+  .page-title {
+    font-family: var(--font-heading);
+    font-size: var(--text-h1);
+    font-weight: 400;
+    color: var(--color-text-primary);
+    margin: 0 0 var(--space-md);
+    line-height: 1.2;
+  }
+
+  .contact-layout {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xl);
+    margin-top: var(--space-2xl);
+  }
+
+  .contact-form-card {
+    background-color: var(--color-surface);
+    border-radius: 8px;
+    padding: 32px;
+  }
+
+  .sidebar-body {
+    font-family: var(--font-body);
+    font-size: var(--text-body);
+    font-weight: 300;
+    color: var(--color-text-primary);
+    line-height: 1.8;
+    margin: 0;
+  }
+
+  .section-heading {
+    font-family: var(--font-heading);
+    font-size: var(--text-h2);
+    font-weight: 400;
+    color: var(--color-text-primary);
+    margin: 0 0 var(--space-md);
+  }
+
+  @media (min-width: 768px) {
+    .contact-layout {
+      flex-direction: row;
+      align-items: flex-start;
+    }
+
+    .contact-form-card {
+      flex: 3;
+    }
+
+    .contact-sidebar {
+      flex: 2;
+    }
+  }
+</style>

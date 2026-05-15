@@ -1,0 +1,110 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SageAccent from '../components/SageAccent.astro';
+---
+
+<BaseLayout title="Page Not Found — TLC Photography">
+  <div class="not-found">
+    <SageAccent />
+    <h1 class="not-found-heading">Page Not Found</h1>
+    <p class="not-found-sub">
+      The page you're looking for has moved or doesn't exist.
+    </p>
+    <div class="not-found-actions">
+      <a href="/" class="btn-primary">Go Home</a>
+      <a href="/portfolio" class="btn-secondary">View Portfolio</a>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .not-found {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 128px var(--margin-mobile) var(--space-4xl);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-lg);
+  }
+
+  .not-found-heading {
+    font-family: var(--font-heading);
+    font-size: var(--text-h1);
+    font-weight: 400;
+    color: var(--color-text-primary);
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  .not-found-sub {
+    font-family: var(--font-subheading);
+    font-size: var(--text-subheading);
+    font-style: italic;
+    font-weight: 300;
+    color: var(--color-neutral);
+    margin: 0;
+    max-width: 440px;
+  }
+
+  .not-found-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: var(--space-md);
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 12px 32px;
+    font-family: var(--font-ui);
+    font-size: var(--text-button);
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: opacity 0.2s;
+  }
+
+  .btn-primary {
+    background-color: var(--color-accent);
+    color: var(--color-bg-primary);
+    border: none;
+  }
+
+  .btn-primary:hover {
+    opacity: 0.85;
+  }
+
+  .btn-secondary {
+    background-color: transparent;
+    color: var(--color-accent);
+    border: 1px solid var(--color-accent);
+  }
+
+  .btn-secondary:hover {
+    background-color: var(--color-accent-light);
+  }
+
+  .btn-primary:focus-visible,
+  .btn-secondary:focus-visible {
+    outline: 2px solid var(--color-accent-light);
+    outline-offset: 1px;
+  }
+
+  @media (min-width: 640px) {
+    .not-found-actions {
+      flex-direction: row;
+      max-width: none;
+      width: auto;
+    }
+  }
+</style>
