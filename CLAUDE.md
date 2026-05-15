@@ -1,5 +1,5 @@
 # CLAUDE.md — TLC Photography Website
-# [UPDATED May 10, 2026 — Task 8 added to queue]
+# [UPDATED May 14, 2026 — Task 2 complete, Task 3 is current]
 
 Read this file first. Then read the task file it points you to. Do that task. Stop.
 
@@ -15,13 +15,14 @@ Read this file first. Then read the task file it points you to. Do that task. St
 
 ## Current Task
 
-**Task 1: Project Scaffold & Config**
-Read and execute: `tasks/TASK-1-scaffold.md`
+**Task 3: Twilight Palette Transition**
+Read and execute: `tasks/TASK-3-palette-manager.md`
 
 ## Task Queue (for reference only — do NOT open files beyond the current task)
 
-1. Project scaffold & config ← CURRENT
-2. shadcn/ui component theming → `tasks/TASK-2-shadcn-theming.md`
+1. Project scaffold & config ✓ DONE
+2. shadcn/ui component theming ✓ DONE
+3. Twilight palette transition ← CURRENT
 3. Twilight palette transition → `tasks/TASK-3-palette-manager.md`
 4. Header, Footer, pages, islands → `tasks/TASK-4-pages.md`
 5. Contact form backend → `tasks/TASK-5-contact-worker.md`

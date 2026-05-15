@@ -103,7 +103,7 @@ astro
 @keystatic/astro
 react
 react-dom
-tailwindcss
+tailwindcss@^3
 @fontsource/cormorant-garamond (weights: 300, 400)
 @fontsource/raleway (weights: 300, 400, 500)
 @fontsource/fraunces (weights: 300, 400)

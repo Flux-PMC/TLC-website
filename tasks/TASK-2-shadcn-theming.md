@@ -81,16 +81,18 @@ Installing and restyling 7 shadcn/ui component types to match TLC's design token
 
 ## Steps
 
-1. Initialize shadcn/ui using the CLI (copy-to-source approach, NOT npm package dependency)
-2. Add these 7 component types: Sheet, Dialog, Accordion, Button, Input, Textarea, Label
-3. Restyle each component per the specs below — replace all default shadcn colors, shadows, and borders with TLC design tokens
-4. Create a temporary test page at `/test-components` that renders every themed component so you can visually verify
-5. Confirm all components render correctly with TLC tokens
-6. STOP and report.
+1. Downgrade Tailwind to v3 — run `npm install tailwindcss@^3` before anything else. Task 1 installed Tailwind v4 which is incompatible with `@astrojs/tailwind` and the config approach used throughout this build. This must be v3.
+2. Add `@astrojs/tailwind` back to the integrations array in `astro.config.mjs` — Task 1 had to omit it due to the v4 conflict. Now that v3 is installed it must be registered. Import it and add it to the integrations array alongside the existing react, keystatic, and cloudflare integrations.
+3. Initialize shadcn/ui using the CLI (copy-to-source approach, NOT npm package dependency)
+3. Add these 7 component types: Sheet, Dialog, Accordion, Button, Input, Textarea, Label
+4. Restyle each component per the specs below — replace all default shadcn colors, shadows, and borders with TLC design tokens
+5. Create a temporary test page at `/test-components` that renders every themed component so you can visually verify
+6. Confirm all components render correctly with TLC tokens
+7. STOP and report.
 
 ## Packages to Install
 
-Whatever the shadcn/ui CLI requires (typically `class-variance-authority`, `clsx`, `tailwind-merge`, `@radix-ui/*` primitives). Follow the shadcn init process. Do NOT install anything beyond what shadcn needs.
+Run `npm install tailwindcss@^3` first (see Step 1). Then install whatever the shadcn/ui CLI requires (typically `class-variance-authority`, `clsx`, `tailwind-merge`, `@radix-ui/*` primitives). Follow the shadcn init process. Do NOT install anything beyond what shadcn needs.
 
 ## Component Styling Specs
 

@@ -1,0 +1,64 @@
+---
+import '@fontsource/cormorant-garamond/300.css';
+import '@fontsource/cormorant-garamond/400.css';
+import '@fontsource/raleway/300.css';
+import '@fontsource/raleway/400.css';
+import '@fontsource/raleway/500.css';
+import '@fontsource/fraunces/300.css';
+import '@fontsource/fraunces/400.css';
+import '@fontsource/outfit/300.css';
+import '@fontsource/outfit/400.css';
+import '../styles/global.css';
+import PaletteManager from '../components/PaletteManager';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title = 'TLC Photography', description = '' } = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <PaletteManager client:only="react" />
+    <header></header>
+
+    <main>
+      <div
+        class="mx-auto w-full max-w-site"
+        style="padding-left: var(--margin-mobile); padding-right: var(--margin-mobile);"
+      >
+        <slot />
+      </div>
+    </main>
+
+    <footer></footer>
+  </body>
+</html>
+
+<style>
+  main {
+    min-height: 100vh;
+  }
+
+  @media (min-width: 768px) {
+    main > div {
+      padding-left: var(--margin-tablet);
+      padding-right: var(--margin-tablet);
+    }
+  }
+
+  @media (min-width: 1200px) {
+    main > div {
+      padding-left: var(--margin-desktop);
+      padding-right: var(--margin-desktop);
+    }
+  }
+</style>

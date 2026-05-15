@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { TestComponents } from '../components/TestComponents';
+---
+
+<BaseLayout title="Component Test — TLC Photography">
+  <div style="max-width: 900px; margin: 0 auto; padding: 48px 0;">
+    <h1 style="font-family: var(--font-heading); font-size: var(--text-h1); font-weight: 400; margin-bottom: 8px;">
+      Component Verification
+    </h1>
+    <p style="font-family: var(--font-body); font-size: var(--text-small); color: var(--color-neutral); margin-bottom: 48px; text-transform: uppercase; letter-spacing: 1.5px;">
+      Temporary — TLC design tokens applied to shadcn/ui
+    </p>
+  </div>
+
+  <TestComponents client:load />
+</BaseLayout>

@@ -1,0 +1,79 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Palette A: Lavender & Sage (daytime default) */
+  --color-text-primary: #3A3338;
+  --color-bg-primary: #FAF7F4;
+  --color-accent: #9B8EC4;
+  --color-surface: #EDE7DF;
+  --color-accent-light: #DDD4EE;
+  --color-neutral: #A89B91;
+  --color-botanical-1: #C2CBB2;
+  --color-botanical-2: #D6DCCA;
+
+  /* Typography — Palette A */
+  --font-heading: 'Cormorant Garamond', Georgia, serif;
+  --font-subheading: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'Raleway', 'Helvetica Neue', sans-serif;
+  --font-ui: 'Raleway', 'Helvetica Neue', sans-serif;
+
+  /* Type scale */
+  --text-hero: 48px;
+  --text-h1: 36px;
+  --text-h2: 28px;
+  --text-h3: 22px;
+  --text-subheading: 18px;
+  --text-body: 16px;
+  --text-small: 14px;
+  --text-button: 14px;
+
+  /* Spacing scale (8px base) */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+  --space-4xl: 96px;
+  --space-5xl: 128px;
+
+  /* Layout */
+  --max-width: 1200px;
+  --margin-desktop: 48px;
+  --margin-tablet: 32px;
+  --margin-mobile: 16px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  font-weight: 300;
+  line-height: 1.6;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
