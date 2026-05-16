@@ -17,13 +17,13 @@ interface Props {
 export default function SessionTypeCards({ sessions, linkToServices }: Props) {
   const [activeCard, setActiveCard] = useState<number | null>(null);
   const isTouchDevice = useRef(false);
-  const reducedMotion = useRef(false);
+  const reducedMotion = useRef(
+    typeof window !== 'undefined'
+      ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      : false
+  );
 
   useEffect(() => {
-    reducedMotion.current = window.matchMedia(
-      '(prefers-reduced-motion: reduce)'
-    ).matches;
-
     const onFirstTouch = () => {
       isTouchDevice.current = true;
       window.removeEventListener('touchstart', onFirstTouch);
@@ -40,7 +40,7 @@ export default function SessionTypeCards({ sessions, linkToServices }: Props) {
     if (!isTouchDevice.current && activeCard === idx) setActiveCard(null);
   };
 
-  const handleClick = (idx: number, href?: string) => {
+  const handleActivate = (idx: number, href?: string) => {
     if (isTouchDevice.current) {
       setActiveCard((prev) => (prev === idx ? null : idx));
     } else if (href) {
@@ -68,16 +68,27 @@ export default function SessionTypeCards({ sessions, linkToServices }: Props) {
             key={session.name}
             onMouseEnter={() => handleMouseEnter(idx)}
             onMouseLeave={() => handleMouseLeave(idx)}
-            onClick={() => handleClick(idx, destination)}
+            onClick={() => handleActivate(idx, destination)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                handleActivate(idx, destination);
+              }
+            }}
+            tabIndex={0}
             style={{
               position: 'relative',
               borderRadius: '4px',
               overflow: 'hidden',
               aspectRatio: '4 / 5',
-              cursor: destination || isTouchDevice.current ? 'pointer' : 'default',
+              cursor: 'pointer',
             }}
-            role={destination ? 'link' : undefined}
-            aria-label={destination ? `${session.name} — view all services` : session.name}
+            role="button"
+            aria-label={
+              destination
+                ? `${session.name} — view all services`
+                : session.name
+            }
           >
             {/* Image */}
             <motion.div
@@ -116,11 +127,10 @@ export default function SessionTypeCards({ sessions, linkToServices }: Props) {
                   ? { duration: 0 }
                   : { duration: transitionDuration, ease: 'easeOut' }
               }
+              className="session-card-overlay"
               style={{
                 position: 'absolute',
                 inset: 0,
-                background:
-                  'linear-gradient(to top, rgba(58,51,56,0.85) 0%, transparent 100%)',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'flex-end',
@@ -129,11 +139,11 @@ export default function SessionTypeCards({ sessions, linkToServices }: Props) {
               aria-hidden={!isActive}
             >
               <p
+                className="session-card-title"
                 style={{
                   fontFamily: 'var(--font-heading)',
                   fontSize: '20px',
                   fontWeight: 400,
-                  color: '#FAF7F4',
                   margin: '0 0 4px',
                   lineHeight: 1.2,
                 }}
@@ -141,10 +151,10 @@ export default function SessionTypeCards({ sessions, linkToServices }: Props) {
                 {session.name}
               </p>
               <p
+                className="session-card-desc"
                 style={{
                   fontFamily: 'var(--font-body)',
                   fontSize: '12px',
-                  color: 'rgba(250, 247, 244, 0.8)',
                   margin: 0,
                   lineHeight: 1.5,
                   display: '-webkit-box',

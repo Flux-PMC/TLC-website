@@ -13,28 +13,29 @@ interface Props {
 
 export default function TestimonialCarousel({ testimonials }: Props) {
   const [current, setCurrent] = useState(0);
+  const [paused, setPaused] = useState(false);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const reducedMotionRef = useRef(false);
-
-  useEffect(() => {
-    reducedMotionRef.current = window.matchMedia(
-      '(prefers-reduced-motion: reduce)'
-    ).matches;
-  }, []);
+  const reducedMotionRef = useRef(
+    typeof window !== 'undefined'
+      ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      : false
+  );
 
   const startTimer = () => {
     if (timerRef.current) clearInterval(timerRef.current);
     timerRef.current = setInterval(() => {
-      setCurrent((c) => (c + 1) % testimonials.length);
+      if (!paused) {
+        setCurrent((c) => (c + 1) % testimonials.length);
+      }
     }, 6000);
   };
 
   useEffect(() => {
-    if (testimonials.length > 1) startTimer();
+    if (testimonials.length > 1 && !reducedMotionRef.current) startTimer();
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
-  }, [testimonials.length]);
+  }, [testimonials.length, paused]);
 
   const goTo = (idx: number) => {
     setCurrent(idx);
@@ -52,6 +53,10 @@ export default function TestimonialCarousel({ testimonials }: Props) {
         maxWidth: '600px',
         margin: '0 auto',
       }}
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onFocus={() => setPaused(true)}
+      onBlur={() => setPaused(false)}
     >
       <div style={{ position: 'relative', minHeight: '140px' }}>
         <AnimatePresence mode="wait">

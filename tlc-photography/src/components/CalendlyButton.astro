@@ -5,25 +5,30 @@ interface Props {
 }
 
 const {
-  calendlyUrl = '#',
+  calendlyUrl,
   description,
 } = Astro.props;
+
+if (!calendlyUrl && import.meta.env.DEV) {
+  console.warn('CalendlyButton: no calendlyUrl provided — component will not render.');
+}
 ---
 
-<div class="calendly-cta">
-  <a
-    href={calendlyUrl}
-    target="_blank"
-    rel="noopener noreferrer"
-    class="calendly-btn"
-    role="button"
-  >
-    Book a Consultation
-  </a>
-  {description && (
-    <p class="calendly-description">{description}</p>
-  )}
-</div>
+{calendlyUrl && (
+  <div class="calendly-cta">
+    <a
+      href={calendlyUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="calendly-btn"
+    >
+      Book a Consultation
+    </a>
+    {description && (
+      <p class="calendly-description">{description}</p>
+    )}
+  </div>
+)}
 
 <style>
   .calendly-cta {

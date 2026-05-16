@@ -15,13 +15,13 @@ interface Props {
 export default function ServiceCards({ services }: Props) {
   const [expandedCard, setExpandedCard] = useState<number | null>(null);
   const isTouchDevice = useRef(false);
-  const reducedMotion = useRef(false);
+  const reducedMotion = useRef(
+    typeof window !== 'undefined'
+      ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      : false
+  );
 
   useEffect(() => {
-    reducedMotion.current = window.matchMedia(
-      '(prefers-reduced-motion: reduce)'
-    ).matches;
-
     const onFirstTouch = () => {
       isTouchDevice.current = true;
       window.removeEventListener('touchstart', onFirstTouch);
@@ -38,10 +38,8 @@ export default function ServiceCards({ services }: Props) {
     if (!isTouchDevice.current && expandedCard === idx) setExpandedCard(null);
   };
 
-  const handleClick = (idx: number) => {
-    if (isTouchDevice.current) {
-      setExpandedCard((prev) => (prev === idx ? null : idx));
-    }
+  const handleToggle = (idx: number) => {
+    setExpandedCard((prev) => (prev === idx ? null : idx));
   };
 
   return (
@@ -57,22 +55,20 @@ export default function ServiceCards({ services }: Props) {
       {services.map((service, idx) => {
         const isExpanded = expandedCard === idx;
         const dur = reducedMotion.current ? 0 : 0.35;
+        const descId = `service-desc-${idx}`;
 
         return (
           <div
             key={service.name}
             onMouseEnter={() => handleMouseEnter(idx)}
             onMouseLeave={() => handleMouseLeave(idx)}
-            onClick={() => handleClick(idx)}
             style={{
               position: 'relative',
               backgroundColor: 'var(--color-surface)',
               borderRadius: '8px',
               padding: '24px',
-              cursor: isTouchDevice.current ? 'pointer' : 'default',
               overflow: 'hidden',
             }}
-            aria-expanded={isExpanded}
           >
             <div
               style={{
@@ -119,33 +115,50 @@ export default function ServiceCards({ services }: Props) {
 
               {/* Text section */}
               <div style={{ flex: 1 }}>
-                <h3
+                {/* Expand trigger button */}
+                <button
+                  onClick={() => handleToggle(idx)}
+                  aria-expanded={isExpanded}
+                  aria-controls={descId}
                   style={{
-                    fontFamily: 'var(--font-heading)',
-                    fontSize: 'var(--text-h3)',
-                    fontWeight: 400,
-                    color: 'var(--color-text-primary)',
-                    margin: '0 0 8px',
-                    lineHeight: 1.3,
+                    display: 'block',
+                    width: '100%',
+                    textAlign: 'left',
+                    background: 'none',
+                    border: 'none',
+                    padding: 0,
+                    cursor: 'pointer',
                   }}
                 >
-                  {service.name}
-                </h3>
+                  <h3
+                    style={{
+                      fontFamily: 'var(--font-heading)',
+                      fontSize: 'var(--text-h3)',
+                      fontWeight: 400,
+                      color: 'var(--color-text-primary)',
+                      margin: '0 0 8px',
+                      lineHeight: 1.3,
+                    }}
+                  >
+                    {service.name}
+                  </h3>
 
-                <p
-                  style={{
-                    fontFamily: 'var(--font-ui)',
-                    fontSize: 'var(--text-small)',
-                    color: 'var(--color-neutral)',
-                    margin: '0 0 12px',
-                    letterSpacing: '0.3px',
-                  }}
-                >
-                  Starting at {service.startingPrice}
-                </p>
+                  <p
+                    style={{
+                      fontFamily: 'var(--font-ui)',
+                      fontSize: 'var(--text-small)',
+                      color: 'var(--color-neutral)',
+                      margin: 0,
+                      letterSpacing: '0.3px',
+                    }}
+                  >
+                    Starting at {service.startingPrice}
+                  </p>
+                </button>
 
                 {/* Expandable description */}
                 <motion.div
+                  id={descId}
                   initial={false}
                   animate={{
                     height: isExpanded ? 'auto' : 0,
@@ -171,7 +184,7 @@ export default function ServiceCards({ services }: Props) {
                       fontSize: 'var(--text-small)',
                       fontWeight: 300,
                       color: 'var(--color-text-primary)',
-                      margin: 0,
+                      margin: '12px 0 0',
                       lineHeight: 1.7,
                     }}
                   >

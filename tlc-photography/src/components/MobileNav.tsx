@@ -3,6 +3,7 @@ import { Menu } from 'lucide-react';
 import {
   Sheet,
   SheetContent,
+  SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet';
 
@@ -47,6 +48,7 @@ export default function MobileNav({ currentPath }: Props) {
         </button>
       </SheetTrigger>
       <SheetContent side="right">
+        <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
         <nav
           aria-label="Mobile navigation"
           style={{ display: 'flex', flexDirection: 'column', marginTop: '48px' }}

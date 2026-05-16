@@ -77,3 +77,20 @@ body {
     transition-duration: 0.01ms !important;
   }
 }
+
+.session-card-overlay {
+  background: linear-gradient(
+    to top,
+    rgba(58, 51, 56, 0.85) 0%,
+    transparent 100%
+  );
+}
+
+.session-card-title {
+  color: var(--color-bg-primary);
+}
+
+.session-card-desc {
+  color: var(--color-bg-primary);
+  opacity: 0.8;
+}

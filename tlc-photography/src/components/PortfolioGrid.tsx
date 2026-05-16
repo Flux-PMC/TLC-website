@@ -21,13 +21,13 @@ export default function PortfolioGrid({ images }: Props) {
   const [visible, setVisible] = useState(false);
   const [selected, setSelected] = useState<PortfolioImage | null>(null);
   const gridRef = useRef<HTMLDivElement>(null);
-  const reducedMotion = useRef(false);
+  const reducedMotion = useRef(
+    typeof window !== 'undefined'
+      ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      : false
+  );
 
   useEffect(() => {
-    reducedMotion.current = window.matchMedia(
-      '(prefers-reduced-motion: reduce)'
-    ).matches;
-
     if (reducedMotion.current) {
       setVisible(true);
       return;
@@ -98,6 +98,8 @@ export default function PortfolioGrid({ images }: Props) {
               src={image.src}
               alt={image.alt}
               loading="lazy"
+              width="600"
+              height="750"
               style={{
                 width: '100%',
                 aspectRatio: '4 / 5',

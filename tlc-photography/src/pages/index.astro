@@ -4,7 +4,6 @@ import SectionWrapper from '../components/SectionWrapper.astro';
 import SageAccent from '../components/SageAccent.astro';
 import CalendlyButton from '../components/CalendlyButton.astro';
 import TestimonialCarousel from '../components/TestimonialCarousel';
-import SessionTypeCards from '../components/SessionTypeCards';
 
 const placeholderTestimonials = [
   {
@@ -27,26 +26,6 @@ const placeholderTestimonials = [
   },
 ];
 
-const previewSessions = [
-  {
-    name: 'Families',
-    description: 'Relaxed sessions for the whole family, including extended families and pets.',
-    image: '',
-    startingPrice: '',
-  },
-  {
-    name: 'Couples',
-    description: 'Intimate portraits for couples at any stage — engagements, anniversaries, just because.',
-    image: '',
-    startingPrice: '',
-  },
-  {
-    name: 'Seniors',
-    description: 'A milestone deserves more than a backdrop. Senior sessions that feel like you.',
-    image: '',
-    startingPrice: '',
-  },
-];
 ---
 
 <BaseLayout
@@ -97,21 +76,6 @@ const previewSessions = [
     />
   </SectionWrapper>
 
-  <!-- Session type preview -->
-  <SectionWrapper bg="var(--color-botanical-2)">
-    <h2 class="section-heading">Find Your Session</h2>
-    <SageAccent />
-    <p class="section-subheading">
-      Every session is different. Every family, couple, and senior brings their own story.
-    </p>
-    <div style="margin-top: var(--space-xl);">
-      <SessionTypeCards
-        client:visible
-        sessions={previewSessions}
-        linkToServices={true}
-      />
-    </div>
-  </SectionWrapper>
 </BaseLayout>
 
 <style>
@@ -238,6 +202,12 @@ const previewSessions = [
   @media (min-width: 768px) {
     .hero-content {
       padding: var(--space-5xl) var(--margin-tablet);
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .hero-content {
+      padding: var(--space-5xl) var(--margin-desktop);
     }
   }
 

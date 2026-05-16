@@ -130,13 +130,16 @@ export default function PaletteManager() {
         return;
       }
 
-      const root = document.documentElement;
-      root.style.transition = 'opacity 0.6s ease';
-      root.style.opacity = '0';
+      const body = document.body;
+      body.style.transition = 'opacity 0.6s ease';
+      body.style.opacity = '0';
       setTimeout(() => {
         applyFontsDirect(fonts);
         fontStateRef.current = target;
-        root.style.opacity = '1';
+        body.style.opacity = '1';
+        setTimeout(() => {
+          body.style.transition = '';
+        }, 600);
       }, 600);
     }
 

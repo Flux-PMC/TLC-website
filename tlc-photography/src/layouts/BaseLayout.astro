@@ -1,11 +1,15 @@
 ---
 import '@fontsource/cormorant-garamond/300.css';
 import '@fontsource/cormorant-garamond/400.css';
+import '@fontsource/cormorant-garamond/300-italic.css';
+import '@fontsource/cormorant-garamond/400-italic.css';
 import '@fontsource/raleway/300.css';
 import '@fontsource/raleway/400.css';
 import '@fontsource/raleway/500.css';
 import '@fontsource/fraunces/300.css';
 import '@fontsource/fraunces/400.css';
+import '@fontsource/fraunces/300-italic.css';
+import '@fontsource/fraunces/400-italic.css';
 import '@fontsource/outfit/300.css';
 import '@fontsource/outfit/400.css';
 import '../styles/global.css';
@@ -19,14 +23,14 @@ interface Props {
   description?: string;
 }
 
-const { title = 'TLC Photography', description = '' } = Astro.props;
+const { title = 'TLC Photography', description } = Astro.props;
 ---
 
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content={description} />
+    {description && <meta name="description" content={description} />}
     <title>{title}</title>
   </head>
   <body>

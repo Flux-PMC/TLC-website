@@ -90,6 +90,7 @@ export default function ChatButton({ chatbotUrl }: Props) {
             <iframe
               src={chatbotUrl}
               title="Chat assistant"
+              sandbox="allow-scripts allow-forms allow-same-origin"
               style={{
                 width: '100%',
                 height: '100%',
