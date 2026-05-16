@@ -94,7 +94,7 @@ export default function ContactForm() {
       <div
         style={{
           padding: 'var(--space-2xl)',
-          textAlign: 'center',
+          textAlign: 'left',
         }}
       >
         <p
@@ -123,7 +123,7 @@ export default function ContactForm() {
         style={{ display: 'none' }}
         tabIndex={-1}
         autoComplete="off"
-        aria-hidden
+        aria-hidden="true"
       />
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>

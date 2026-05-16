@@ -7,6 +7,7 @@ import keystatic from '@keystatic/astro';
 
 // https://astro.build/config
 export default defineConfig({
+  site: 'https://tlc-photography.com',
   adapter: cloudflare(),
   integrations: [
     react(),

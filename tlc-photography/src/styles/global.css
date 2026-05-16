@@ -4,6 +4,7 @@
 
 :root {
   /* Palette A: Lavender & Sage (daytime default) */
+  --color-overlay-dark: rgba(58, 51, 56, 0.85);
   --color-text-primary: #3A3338;
   --color-bg-primary: #FAF7F4;
   --color-accent: #9B8EC4;
@@ -81,7 +82,7 @@ body {
 .session-card-overlay {
   background: linear-gradient(
     to top,
-    rgba(58, 51, 56, 0.85) 0%,
+    var(--color-overlay-dark, rgba(58, 51, 56, 0.85)) 0%,
     transparent 100%
   );
 }
@@ -93,4 +94,14 @@ body {
 .session-card-desc {
   color: var(--color-bg-primary);
   opacity: 0.8;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent-light);
+  outline-offset: 1px;
+  border-radius: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skip-link { transition: none; }
 }

@@ -61,6 +61,13 @@ const allSessions = [
 
     <div style="margin-top: var(--space-2xl);">
       <h2 class="section-heading">Session Types</h2>
+      {/* Anchor targets for SessionQuiz deep links (Task 8) */}
+      <span id="families" style="display:block;height:0;visibility:hidden;"></span>
+      <span id="couples" style="display:block;height:0;visibility:hidden;"></span>
+      <span id="seniors" style="display:block;height:0;visibility:hidden;"></span>
+      <span id="newborns" style="display:block;height:0;visibility:hidden;"></span>
+      <span id="maternity" style="display:block;height:0;visibility:hidden;"></span>
+      <span id="engagements" style="display:block;height:0;visibility:hidden;"></span>
       <SessionTypeCards client:visible sessions={allSessions} />
     </div>
   </SectionWrapper>

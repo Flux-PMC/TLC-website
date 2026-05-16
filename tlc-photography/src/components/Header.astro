@@ -18,12 +18,7 @@ const isActive = (href: string) =>
 <header class="site-header">
   <div class="header-inner">
     <a href="/" class="logo-link" aria-label="TLC Photography home">
-      <img
-        src="/TLC-logo.svg"
-        alt="TLC Photography"
-        height="40"
-        style="height: 40px; width: auto;"
-      />
+      <span class="logo-text">TLC Photography</span>
     </a>
 
     <nav class="desktop-nav" aria-label="Main navigation">
@@ -68,6 +63,14 @@ const isActive = (href: string) =>
     align-items: center;
     text-decoration: none;
     flex-shrink: 0;
+  }
+
+  .logo-text {
+    font-family: var(--font-heading);
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--color-text-primary);
+    white-space: nowrap;
   }
 
   .desktop-nav {
