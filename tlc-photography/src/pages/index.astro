@@ -4,6 +4,11 @@ import SectionWrapper from '../components/SectionWrapper.astro';
 import SageAccent from '../components/SageAccent.astro';
 import CalendlyButton from '../components/CalendlyButton.astro';
 import TestimonialCarousel from '../components/TestimonialCarousel';
+import ImageOptimized from '../components/ImageOptimized.astro';
+import heroImage from '../assets/images/hero/TLC06137.jpg';
+import previewImg1 from '../assets/images/TLC05947.jpg';
+import previewImg2 from '../assets/images/TLC06150.jpg';
+import previewImg3 from '../assets/images/TLC06444.jpg';
 
 const placeholderTestimonials = [
   {
@@ -34,7 +39,15 @@ const placeholderTestimonials = [
 >
   <!-- Hero -->
   <section class="hero" aria-label="Welcome to TLC Photography">
-    <div class="hero-bg"></div>
+    <div class="hero-bg">
+      <ImageOptimized
+        src={heroImage}
+        alt="Golden hour portrait session in Louisiana"
+        loading="eager"
+        widths={[800, 1200, 1600, 2400]}
+        sizes="100vw"
+      />
+    </div>
     <div class="hero-content">
       <h1 class="hero-headline">Tender love lights the way.</h1>
       <p class="hero-subheading">Boutique portrait photography in Louisiana</p>
@@ -57,9 +70,30 @@ const placeholderTestimonials = [
     <h2 class="section-heading">Recent Work</h2>
     <SageAccent />
     <div class="portfolio-preview" style="margin-top: var(--space-xl);">
-      <div class="portfolio-placeholder"></div>
-      <div class="portfolio-placeholder"></div>
-      <div class="portfolio-placeholder"></div>
+      <ImageOptimized
+        src={previewImg1}
+        alt="Portrait in soft Louisiana light"
+        loading="lazy"
+        aspectRatio="4/5"
+        widths={[400, 600, 800]}
+        sizes="(max-width: 640px) 50vw, 33vw"
+      />
+      <ImageOptimized
+        src={previewImg2}
+        alt="Outdoor portrait at golden hour"
+        loading="lazy"
+        aspectRatio="4/5"
+        widths={[400, 600, 800]}
+        sizes="(max-width: 640px) 50vw, 33vw"
+      />
+      <ImageOptimized
+        src={previewImg3}
+        alt="Candid moment during a portrait session"
+        loading="lazy"
+        aspectRatio="4/5"
+        widths={[400, 600, 800]}
+        sizes="(max-width: 640px) 50vw, 33vw"
+      />
     </div>
     <div style="margin-top: var(--space-xl);">
       <a href="/portfolio" class="text-link">View the full portfolio →</a>
@@ -91,7 +125,30 @@ const placeholderTestimonials = [
   .hero-bg {
     position: absolute;
     inset: 0;
+    overflow: hidden;
     background-color: var(--color-surface);
+  }
+
+  /* Force the image wrapper to fill the hero background absolutely */
+  .hero-bg :global(.image-wrapper) {
+    position: absolute !important;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+    aspect-ratio: unset !important;
+  }
+
+  /* Force picture and img to fill */
+  .hero-bg :global(picture),
+  .hero-bg :global(img) {
+    position: absolute !important;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    border-radius: 0;
   }
 
   .hero-content {
@@ -165,16 +222,6 @@ const placeholderTestimonials = [
     gap: 8px;
   }
 
-  .portfolio-placeholder {
-    aspect-ratio: 4 / 5;
-    background-color: var(--color-bg-primary);
-    border-radius: 4px;
-  }
-
-  .portfolio-placeholder:last-child {
-    display: none;
-  }
-
   .text-link {
     font-family: var(--font-ui);
     font-size: var(--text-small);
@@ -192,10 +239,6 @@ const placeholderTestimonials = [
   @media (min-width: 640px) {
     .portfolio-preview {
       grid-template-columns: repeat(3, 1fr);
-    }
-
-    .portfolio-placeholder:last-child {
-      display: block;
     }
   }
 

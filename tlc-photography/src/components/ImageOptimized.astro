@@ -1,0 +1,117 @@
+---
+import { Picture } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  src: ImageMetadata | string;
+  alt: string;
+  widths?: number[];
+  aspectRatio?: string;
+  class?: string;
+  loading?: 'lazy' | 'eager';
+  quality?: number;
+  sizes?: string;
+}
+
+const {
+  src,
+  alt,
+  widths = [400, 800, 1200, 1600],
+  aspectRatio,
+  class: className,
+  loading = 'lazy',
+  quality = 80,
+  sizes = '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw',
+} = Astro.props;
+
+const isMetadata = typeof src !== 'string';
+
+const wrapperStyle = [
+  'position: relative',
+  'overflow: hidden',
+  'border-radius: 4px',
+  'background-color: var(--color-surface)',
+  aspectRatio ? `aspect-ratio: ${aspectRatio}` : null,
+].filter(Boolean).join('; ');
+---
+
+<div
+  class={`image-wrapper${className ? ` ${className}` : ''}${aspectRatio ? ' has-aspect' : ''}`}
+  style={wrapperStyle}
+>
+  {isMetadata ? (
+    <Picture
+      src={src as ImageMetadata}
+      alt={alt}
+      widths={widths}
+      formats={['webp']}
+      quality={quality}
+      sizes={sizes}
+      loading={loading}
+    />
+  ) : (
+    <img
+      src={src as string}
+      alt={alt}
+      loading={loading}
+    />
+  )}
+</div>
+
+<script>
+  // Runs once per page (Astro dedupes scripts). Finds all image-wrapper imgs
+  // and adds .loaded when they finish loading — triggers the opacity transition.
+  function markLoaded(img: HTMLImageElement) {
+    img.classList.add('loaded');
+  }
+  document.querySelectorAll<HTMLImageElement>('.image-wrapper img').forEach((img) => {
+    if (img.complete && img.naturalWidth > 0) {
+      markLoaded(img);
+    } else {
+      img.addEventListener('load', () => markLoaded(img), { once: true });
+    }
+  });
+</script>
+
+<style>
+  /* Base: opacity 0 until the JS load handler adds .loaded */
+  .image-wrapper :global(img),
+  .image-wrapper img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+    opacity: 0;
+    transition: opacity 400ms ease-out;
+  }
+
+  .image-wrapper :global(img.loaded),
+  .image-wrapper img.loaded {
+    opacity: 1;
+  }
+
+  /*
+    has-aspect mode: both <picture> and <img> are absolutely positioned
+    to fill the wrapper. The wrapper's aspect-ratio (set inline) defines
+    the height. <picture> is just a DOM wrapper here, not a layout box.
+  */
+  .image-wrapper.has-aspect :global(picture),
+  .image-wrapper.has-aspect :global(img),
+  .image-wrapper.has-aspect img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0;
+  }
+
+  /* prefers-reduced-motion: skip the fade, show immediately */
+  @media (prefers-reduced-motion: reduce) {
+    .image-wrapper :global(img),
+    .image-wrapper img {
+      opacity: 1;
+      transition: none;
+    }
+  }
+</style>

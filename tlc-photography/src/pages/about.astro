@@ -3,6 +3,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionWrapper from '../components/SectionWrapper.astro';
 import SageAccent from '../components/SageAccent.astro';
 import CalendlyButton from '../components/CalendlyButton.astro';
+import ImageOptimized from '../components/ImageOptimized.astro';
+import aboutImg from '../assets/images/about/TLC01507.jpg';
+import aboutImg2 from '../assets/images/TLC02266.jpg';
+import aboutImg3 from '../assets/images/TLC09152.jpg';
 ---
 
 <BaseLayout
@@ -27,7 +31,14 @@ import CalendlyButton from '../components/CalendlyButton.astro';
         </p>
       </div>
       <div class="split-image" aria-hidden="true">
-        <div class="image-placeholder"></div>
+        <ImageOptimized
+          src={aboutImg}
+          alt=""
+          loading="lazy"
+          aspectRatio="4/5"
+          widths={[400, 800, 1200]}
+          sizes="(max-width: 768px) 100vw, 58vw"
+        />
       </div>
     </div>
   </SectionWrapper>
@@ -36,7 +47,14 @@ import CalendlyButton from '../components/CalendlyButton.astro';
   <SectionWrapper bg="var(--color-surface)">
     <div class="split-section split-section--reverse">
       <div class="split-image" aria-hidden="true">
-        <div class="image-placeholder"></div>
+        <ImageOptimized
+          src={aboutImg2}
+          alt=""
+          loading="lazy"
+          aspectRatio="4/5"
+          widths={[400, 800, 1200]}
+          sizes="(max-width: 768px) 100vw, 58vw"
+        />
       </div>
       <div class="split-text">
         <h2 class="split-heading">Two Kinds of Light.</h2>
@@ -66,7 +84,14 @@ import CalendlyButton from '../components/CalendlyButton.astro';
         </div>
       </div>
       <div class="split-image" aria-hidden="true">
-        <div class="image-placeholder"></div>
+        <ImageOptimized
+          src={aboutImg3}
+          alt=""
+          loading="lazy"
+          aspectRatio="4/5"
+          widths={[400, 800, 1200]}
+          sizes="(max-width: 768px) 100vw, 58vw"
+        />
       </div>
     </div>
   </SectionWrapper>
@@ -123,13 +148,6 @@ import CalendlyButton from '../components/CalendlyButton.astro';
     color: var(--color-text-primary);
     line-height: 1.8;
     margin: 0;
-  }
-
-  .image-placeholder {
-    width: 100%;
-    aspect-ratio: 4 / 5;
-    background-color: var(--color-surface);
-    border-radius: 4px;
   }
 
   @media (min-width: 768px) {
