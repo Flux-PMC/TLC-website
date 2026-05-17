@@ -4,6 +4,7 @@ import react from '@astrojs/react';
 import tailwind from '@astrojs/tailwind';
 import cloudflare from '@astrojs/cloudflare';
 import keystatic from '@keystatic/astro';
+import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
@@ -13,5 +14,6 @@ export default defineConfig({
     react(),
     tailwind({ applyBaseStyles: false }),
     keystatic(),
+    sitemap(),
   ],
 });

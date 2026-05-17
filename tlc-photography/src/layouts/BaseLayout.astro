@@ -12,7 +12,11 @@ import '@fontsource/fraunces/300-italic.css';
 import '@fontsource/fraunces/400-italic.css';
 import '@fontsource/outfit/300.css';
 import '@fontsource/outfit/400.css';
+import cormorantUrl from '@fontsource/cormorant-garamond/files/cormorant-garamond-latin-400-normal.woff2?url';
+import ralewayUrl from '@fontsource/raleway/files/raleway-latin-300-normal.woff2?url';
 import '../styles/global.css';
+import SEOHead from '../components/SEOHead.astro';
+import SchemaMarkup from '../components/SchemaMarkup.astro';
 import PaletteManager from '../components/PaletteManager';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
@@ -21,17 +25,35 @@ import SkipLink from '../components/SkipLink.astro';
 interface Props {
   title?: string;
   description?: string;
+  image?: string;
+  type?: string;
+  publishedDate?: string;
 }
 
-const { title = 'TLC Photography', description } = Astro.props;
+const {
+  title = 'TLC Photography',
+  description = 'Boutique portrait photography serving central and northeast Louisiana.',
+  image,
+  type = 'website',
+  publishedDate,
+} = Astro.props;
 ---
 
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    {description && <meta name="description" content={description} />}
-    <title>{title}</title>
+    <SEOHead
+      title={title}
+      description={description}
+      image={image}
+      url={Astro.url.href}
+      type={type}
+      publishedDate={publishedDate}
+    />
+    <SchemaMarkup />
+    <link rel="preload" href={cormorantUrl} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={ralewayUrl} as="font" type="font/woff2" crossorigin />
   </head>
   <body>
     <PaletteManager client:only="react" />
