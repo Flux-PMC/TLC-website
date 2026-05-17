@@ -22,7 +22,7 @@ export default function ChatButton({ chatbotUrl }: Props) {
       {!open && (
         <button
           onClick={handleOpen}
-          aria-label="Open chat assistant"
+          aria-label="Open chat"
           style={{
             position: 'fixed',
             bottom: '24px',

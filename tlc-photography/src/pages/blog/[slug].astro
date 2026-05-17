@@ -17,13 +17,13 @@ interface Props {
 const { slug } = Astro.params;
 ---
 
-<BaseLayout title="Post — TLC Photography">
+<BaseLayout title="Post | TLC Photography">
   <SectionWrapper>
     <!-- Breadcrumb -->
     <nav aria-label="Breadcrumb" class="breadcrumb">
       <a href="/" class="breadcrumb-link">Home</a>
       <span class="breadcrumb-sep" aria-hidden="true"> / </span>
-      <a href="/blog" class="breadcrumb-link">Journal</a>
+      <a href="/blog" class="breadcrumb-link">Blog</a>
       <span class="breadcrumb-sep" aria-hidden="true"> / </span>
       <span class="breadcrumb-current">{slug}</span>
     </nav>
