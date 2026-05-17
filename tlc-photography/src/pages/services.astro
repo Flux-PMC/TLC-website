@@ -5,6 +5,7 @@ import SageAccent from '../components/SageAccent.astro';
 import CalendlyButton from '../components/CalendlyButton.astro';
 import SessionTypeCards from '../components/SessionTypeCards';
 import ServiceCards from '../components/ServiceCards';
+import SessionQuiz from '../components/SessionQuiz';
 
 const allSessions = [
   {
@@ -47,7 +48,7 @@ const allSessions = [
 ---
 
 <BaseLayout
-  title="Services — TLC Photography"
+  title="Services & Pricing | TLC Photography"
   description="Portrait sessions for families, couples, seniors, newborns, maternity, and engagements in Louisiana. Starting prices and session details."
 >
   <SectionWrapper>
@@ -57,7 +58,9 @@ const allSessions = [
       Every session starts with a conversation. TLC photographs the moment after the pose — when the real thing surfaces. Below you'll find the session types available and what each one looks like.
     </p>
 
-    {/* SessionQuiz island — built in Task 8. Do not remove this comment. */}
+    <div style="margin-top: var(--space-xl);">
+      <SessionQuiz client:visible calendlyUrl="#" />
+    </div>
 
     <div style="margin-top: var(--space-2xl);">
       <h2 class="section-heading">Session Types</h2>
