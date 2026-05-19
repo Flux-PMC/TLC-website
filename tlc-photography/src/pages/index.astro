@@ -9,39 +9,21 @@ import FAQAccordion from '../components/FAQAccordion';
 import ChatButton from '../components/ChatButton';
 import ImageOptimized from '../components/ImageOptimized.astro';
 import SessionTypeCards from '../components/SessionTypeCards';
-import { getImage } from 'astro:assets';
 
-// Hero
-import heroImage from '../assets/images/hero/TLC06137.jpg';
+// Image paths (served directly from public/)
+const heroImage = '/images/hero/TLC06137.jpg';
+const aboutImg1 = '/images/about/TLC01507.jpg';
+const aboutImg3 = '/images/TLC09152.jpg';
+const aboutImg2 = '/images/TLC02266.jpg';
 
-// About images
-import aboutImg1 from '../assets/images/about/TLC01507.jpg';
-import aboutImg3 from '../assets/images/TLC09152.jpg';
-
-// Portfolio preview (first 6) + About section 2 (TLC02266 shared)
-import imgTLC00200 from '../assets/images/TLC00200.jpg';
-import imgTLC00221 from '../assets/images/TLC00221.jpg';
-import imgTLC01388 from '../assets/images/TLC01388.jpg';
-import imgTLC01411 from '../assets/images/TLC01411.jpg';
-import imgTLC02266 from '../assets/images/TLC02266.jpg';
-import imgTLC02268 from '../assets/images/TLC02268.jpg';
-
-// Process portfolio preview images
-const portfolioRaw = [
-  { raw: imgTLC00200, alt: 'Portrait in soft natural light' },
-  { raw: imgTLC00221, alt: 'Candid outdoor portrait' },
-  { raw: imgTLC01388, alt: 'Portrait in warm Louisiana light' },
-  { raw: imgTLC01411, alt: 'Relaxed portrait session' },
-  { raw: imgTLC02266, alt: 'Portrait in dappled shade' },
-  { raw: imgTLC02268, alt: 'Quiet moment during a portrait session' },
+const portfolioImages = [
+  { src: '/images/TLC00200.jpg', alt: 'Portrait in soft natural light' },
+  { src: '/images/TLC00221.jpg', alt: 'Candid outdoor portrait' },
+  { src: '/images/TLC01388.jpg', alt: 'Portrait in warm Louisiana light' },
+  { src: '/images/TLC01411.jpg', alt: 'Relaxed portrait session' },
+  { src: '/images/TLC02266.jpg', alt: 'Portrait in dappled shade' },
+  { src: '/images/TLC02268.jpg', alt: 'Quiet moment during a portrait session' },
 ];
-
-const portfolioImages = await Promise.all(
-  portfolioRaw.map(async ({ raw, alt }) => {
-    const optimized = await getImage({ src: raw, width: 900, format: 'webp', quality: 80 });
-    return { src: optimized.src, alt };
-  })
-);
 
 // Testimonials — replace with Keystatic reader when testimonials are added
 const testimonials = [

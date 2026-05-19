@@ -3,61 +3,28 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionWrapper from '../components/SectionWrapper.astro';
 import SageAccent from '../components/SageAccent.astro';
 import PortfolioGrid from '../components/PortfolioGrid';
-import { getImage } from 'astro:assets';
 
-import raw00200 from '../assets/images/TLC00200.jpg';
-import raw00221 from '../assets/images/TLC00221.jpg';
-import raw01388 from '../assets/images/TLC01388.jpg';
-import raw01411 from '../assets/images/TLC01411.jpg';
-import raw02266 from '../assets/images/TLC02266.jpg';
-import raw02268 from '../assets/images/TLC02268.jpg';
-import raw02278 from '../assets/images/TLC02278.jpg';
-import raw02281 from '../assets/images/TLC02281.jpg';
-import raw05793 from '../assets/images/TLC05793.jpg';
-import raw05947 from '../assets/images/TLC05947.jpg';
-import raw06150 from '../assets/images/TLC06150.jpg';
-import raw06390 from '../assets/images/TLC06390.jpg';
-import raw06418 from '../assets/images/TLC06418.jpg';
-import raw06444 from '../assets/images/TLC06444.jpg';
-import raw06456 from '../assets/images/TLC06456-2-2.jpg';
-import raw09152 from '../assets/images/TLC09152.jpg';
-import raw09158 from '../assets/images/TLC09158.jpg';
-import raw09786 from '../assets/images/TLC09786.jpg';
-import raw09808 from '../assets/images/TLC09808.jpg';
-
-const rawImages = [
-  { raw: raw00200, alt: 'Portrait in soft natural light' },
-  { raw: raw00221, alt: 'Candid outdoor portrait' },
-  { raw: raw01388, alt: 'Portrait in warm Louisiana light' },
-  { raw: raw01411, alt: 'Relaxed portrait session' },
-  { raw: raw02266, alt: 'Portrait in dappled shade' },
-  { raw: raw02268, alt: 'Quiet moment during a portrait session' },
-  { raw: raw02278, alt: 'Natural light portrait' },
-  { raw: raw02281, alt: 'Outdoor portrait at golden hour' },
-  { raw: raw05793, alt: 'Portrait with soft background' },
-  { raw: raw05947, alt: 'Sunlit outdoor portrait' },
-  { raw: raw06150, alt: 'Portrait in open shade' },
-  { raw: raw06390, alt: 'Soft portrait in evening light' },
-  { raw: raw06418, alt: 'Candid moment between poses' },
-  { raw: raw06444, alt: 'Portrait framed by foliage' },
-  { raw: raw06456, alt: 'Natural outdoor portrait' },
-  { raw: raw09152, alt: 'Portrait in warm afternoon light' },
-  { raw: raw09158, alt: 'Relaxed portrait in natural setting' },
-  { raw: raw09786, alt: 'Outdoor portrait with soft background' },
-  { raw: raw09808, alt: 'Portrait in Louisiana light' },
+const portfolioImages = [
+  { title: 'Portrait session', src: '/images/TLC00200.jpg', alt: 'Portrait in soft natural light', category: 'portraits' },
+  { title: 'Portrait session', src: '/images/TLC00221.jpg', alt: 'Candid outdoor portrait', category: 'portraits' },
+  { title: 'Portrait session', src: '/images/TLC01388.jpg', alt: 'Portrait in warm Louisiana light', category: 'portraits' },
+  { title: 'Portrait session', src: '/images/TLC01411.jpg', alt: 'Relaxed portrait session', category: 'portraits' },
+  { title: 'Portrait session', src: '/images/TLC02266.jpg', alt: 'Portrait in dappled shade', category: 'portraits' },
+  { title: 'Portrait session', src: '/images/TLC02268.jpg', alt: 'Quiet moment during a portrait session', category: 'portraits' },
+  { title: 'Portrait session', src: '/images/TLC02278.jpg', alt: 'Natural light portrait', category: 'portraits' },
+  { title: 'Portrait session', src: '/images/TLC02281.jpg', alt: 'Outdoor portrait at golden hour', category: 'portraits' },
+  { title: 'Portrait session', src: '/images/TLC05793.jpg', alt: 'Portrait with soft background', category: 'portraits' },
+  { title: 'Portrait session', src: '/images/TLC05947.jpg', alt: 'Sunlit outdoor portrait', category: 'portraits' },
+  { title: 'Portrait session', src: '/images/TLC06150.jpg', alt: 'Portrait in open shade', category: 'portraits' },
+  { title: 'Portrait session', src: '/images/TLC06390.jpg', alt: 'Soft portrait in evening light', category: 'portraits' },
+  { title: 'Portrait session', src: '/images/TLC06418.jpg', alt: 'Candid moment between poses', category: 'portraits' },
+  { title: 'Portrait session', src: '/images/TLC06444.jpg', alt: 'Portrait framed by foliage', category: 'portraits' },
+  { title: 'Portrait session', src: '/images/TLC06456-2-2.jpg', alt: 'Natural outdoor portrait', category: 'portraits' },
+  { title: 'Portrait session', src: '/images/TLC09152.jpg', alt: 'Portrait in warm afternoon light', category: 'portraits' },
+  { title: 'Portrait session', src: '/images/TLC09158.jpg', alt: 'Relaxed portrait in natural setting', category: 'portraits' },
+  { title: 'Portrait session', src: '/images/TLC09786.jpg', alt: 'Outdoor portrait with soft background', category: 'portraits' },
+  { title: 'Portrait session', src: '/images/TLC09808.jpg', alt: 'Portrait in Louisiana light', category: 'portraits' },
 ];
-
-const portfolioImages = await Promise.all(
-  rawImages.map(async ({ raw, alt }) => {
-    const optimized = await getImage({ src: raw, width: 1200, format: 'webp', quality: 80 });
-    return {
-      title: 'Portrait session',
-      src: optimized.src,
-      alt,
-      category: 'portraits',
-    };
-  })
-);
 ---
 
 <BaseLayout
