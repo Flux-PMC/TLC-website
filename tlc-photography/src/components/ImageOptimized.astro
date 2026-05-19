@@ -74,20 +74,12 @@ const wrapperStyle = [
 </script>
 
 <style>
-  /* Base: opacity 0 until the JS load handler adds .loaded */
   .image-wrapper :global(img),
   .image-wrapper img {
     display: block;
     width: 100%;
     height: auto;
     border-radius: 4px;
-    opacity: 0;
-    transition: opacity 400ms ease-out;
-  }
-
-  .image-wrapper :global(img.loaded),
-  .image-wrapper img.loaded {
-    opacity: 1;
   }
 
   /*

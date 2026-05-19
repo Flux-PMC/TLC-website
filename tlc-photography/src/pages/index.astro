@@ -213,30 +213,6 @@ const chatbotUrl = '';
     </div>
   </SectionWrapper>
 
-  <SectionWrapper>
-    <div class="split-section split-section--reverse">
-      <div class="split-image" aria-hidden="true">
-        <ImageOptimized
-          src={imgTLC02266}
-          alt=""
-          loading="lazy"
-          aspectRatio="4/5"
-          widths={[400, 800, 1200]}
-          sizes="(max-width: 768px) 100vw, 58vw"
-        />
-      </div>
-      <div class="split-text">
-        <h2 class="split-heading">Two Kinds of Light.</h2>
-        <p class="split-body">
-          There's the light you find at 7 AM, when everything is cool and sharp. And there's the light at 6 PM, when everything turns gold and soft. TLC works in both. The website itself shifts between the two — the design changes with the time of day, because the brand is built around the idea that light tells time.
-        </p>
-        <p class="split-body">
-          Every image is crafted to last a lifetime and be passed to the next.
-        </p>
-      </div>
-    </div>
-  </SectionWrapper>
-
   <SectionWrapper bg="var(--color-surface)">
     <div class="split-section">
       <div class="split-text">
@@ -308,7 +284,7 @@ const chatbotUrl = '';
 
   <!-- ─── BLOG ──────────────────────────────────────────────────────── -->
   <SectionWrapper id="blog" bg="var(--color-surface)">
-    <h2 class="section-heading">From the Journal</h2>
+    <h2 class="section-heading">Blog</h2>
     <SageAccent />
     {latestPost ? (
       <div class="blog-preview" style="margin-top: var(--space-xl);">
@@ -372,6 +348,10 @@ const chatbotUrl = '';
   </SectionWrapper>
 
   <ChatButton client:only="react" chatbotUrl={chatbotUrl} />
+
+  <div class="palette-note">
+    <p>This site shifts between a cool morning palette and a warm golden hour palette. Light tells time.</p>
+  </div>
 
 </BaseLayout>
 
@@ -623,6 +603,22 @@ const chatbotUrl = '';
 
   .text-link:hover {
     opacity: 0.75;
+  }
+
+  /* ── Palette note ────────────────────────────────────────────────── */
+  .palette-note {
+    text-align: center;
+    padding: var(--space-lg) var(--margin-mobile);
+    background-color: var(--color-surface);
+  }
+
+  .palette-note p {
+    font-family: var(--font-body);
+    font-size: var(--text-small);
+    font-style: italic;
+    font-weight: 300;
+    color: var(--color-neutral);
+    margin: 0;
   }
 
   /* ── Responsive ───────────────────────────────────────────────────── */

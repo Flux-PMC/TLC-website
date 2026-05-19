@@ -10,6 +10,9 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://tlc-photography.com',
   adapter: cloudflare({ imageService: 'passthrough' }),
+  image: {
+    service: { entrypoint: 'astro/assets/services/noop' },
+  },
   integrations: [
     react(),
     tailwind({ applyBaseStyles: false }),
