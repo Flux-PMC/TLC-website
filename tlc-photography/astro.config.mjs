@@ -9,7 +9,7 @@ import sitemap from '@astrojs/sitemap';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://tlc-photography.com',
-  adapter: cloudflare(),
+  adapter: cloudflare({ imageService: 'passthrough' }),
   integrations: [
     react(),
     tailwind({ applyBaseStyles: false }),
