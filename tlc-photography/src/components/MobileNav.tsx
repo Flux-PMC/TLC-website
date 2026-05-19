@@ -8,11 +8,11 @@ import {
 } from '@/components/ui/sheet';
 
 const NAV_LINKS = [
-  { href: '/portfolio', label: 'Portfolio' },
-  { href: '/services', label: 'Services' },
-  { href: '/about', label: 'About' },
-  { href: '/blog', label: 'Blog' },
-  { href: '/contact', label: 'Contact' },
+  { href: '/#about', label: 'About' },
+  { href: '/#portfolio', label: 'Portfolio' },
+  { href: '/#services', label: 'Services' },
+  { href: '/#blog', label: 'Blog' },
+  { href: '/#contact', label: 'Contact' },
 ];
 
 interface Props {

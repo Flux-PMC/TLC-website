@@ -4,18 +4,52 @@ import SectionWrapper from '../components/SectionWrapper.astro';
 import SageAccent from '../components/SageAccent.astro';
 import CalendlyButton from '../components/CalendlyButton.astro';
 import TestimonialCarousel from '../components/TestimonialCarousel';
+import ContactForm from '../components/ContactForm';
+import FAQAccordion from '../components/FAQAccordion';
+import ChatButton from '../components/ChatButton';
 import ImageOptimized from '../components/ImageOptimized.astro';
-import heroImage from '../assets/images/hero/TLC06137.jpg';
-import previewImg1 from '../assets/images/TLC05947.jpg';
-import previewImg2 from '../assets/images/TLC06150.jpg';
-import previewImg3 from '../assets/images/TLC06444.jpg';
+import SessionTypeCards from '../components/SessionTypeCards';
+import { getImage } from 'astro:assets';
 
-const placeholderTestimonials = [
+// Hero
+import heroImage from '../assets/images/hero/TLC06137.jpg';
+
+// About images
+import aboutImg1 from '../assets/images/about/TLC01507.jpg';
+import aboutImg3 from '../assets/images/TLC09152.jpg';
+
+// Portfolio preview (first 6) + About section 2 (TLC02266 shared)
+import imgTLC00200 from '../assets/images/TLC00200.jpg';
+import imgTLC00221 from '../assets/images/TLC00221.jpg';
+import imgTLC01388 from '../assets/images/TLC01388.jpg';
+import imgTLC01411 from '../assets/images/TLC01411.jpg';
+import imgTLC02266 from '../assets/images/TLC02266.jpg';
+import imgTLC02268 from '../assets/images/TLC02268.jpg';
+
+// Process portfolio preview images
+const portfolioRaw = [
+  { raw: imgTLC00200, alt: 'Portrait in soft natural light' },
+  { raw: imgTLC00221, alt: 'Candid outdoor portrait' },
+  { raw: imgTLC01388, alt: 'Portrait in warm Louisiana light' },
+  { raw: imgTLC01411, alt: 'Relaxed portrait session' },
+  { raw: imgTLC02266, alt: 'Portrait in dappled shade' },
+  { raw: imgTLC02268, alt: 'Quiet moment during a portrait session' },
+];
+
+const portfolioImages = await Promise.all(
+  portfolioRaw.map(async ({ raw, alt }) => {
+    const optimized = await getImage({ src: raw, width: 900, format: 'webp', quality: 80 });
+    return { src: optimized.src, alt };
+  })
+);
+
+// Testimonials — replace with Keystatic reader when testimonials are added
+const testimonials = [
   {
     clientName: 'The Fontenot Family',
     sessionType: 'Families',
     quote:
-      'She has a gift for finding the real moments — the ones you didn\'t know to pose for. We treasure every image.',
+      "She has a gift for finding the real moments — the ones you didn't know to pose for. We treasure every image.",
   },
   {
     clientName: 'Eloise & Marcus',
@@ -27,17 +61,106 @@ const placeholderTestimonials = [
     clientName: 'Class of 2026',
     sessionType: 'Seniors',
     quote:
-      'I didn\'t think I was a "photo person" until I saw these. She makes it easy to just be.',
+      "I didn't think I was a \"photo person\" until I saw these. She makes it easy to just be.",
   },
 ];
 
+// Session types for Services section
+const allSessions = [
+  {
+    name: 'Families',
+    description:
+      'Relaxed outdoor and in-home sessions for families of all sizes and ages, including extended families and beloved pets.',
+    image: '',
+    startingPrice: 'Contact for pricing',
+  },
+  {
+    name: 'Couples',
+    description:
+      'Intimate portraits for couples at any stage — engagements, anniversaries, maternity, or simply because.',
+    image: '',
+    startingPrice: 'Contact for pricing',
+  },
+  {
+    name: 'Seniors',
+    description:
+      'A milestone this significant deserves more than a backdrop. Senior sessions that feel true to who you are right now.',
+    image: '',
+    startingPrice: 'Contact for pricing',
+  },
+  {
+    name: 'Newborns',
+    description:
+      'Gentle, unhurried sessions in the first weeks of life. Your home or a quiet studio setting.',
+    image: '',
+    startingPrice: 'Contact for pricing',
+  },
+  {
+    name: 'Maternity',
+    description:
+      'Portraits celebrating this particular chapter — unhurried and entirely yours.',
+    image: '',
+    startingPrice: 'Contact for pricing',
+  },
+  {
+    name: 'Engagements',
+    description:
+      'Before the wedding, a session to settle into the camera together. A way to remember exactly who you were.',
+    image: '',
+    startingPrice: 'Contact for pricing',
+  },
+];
+
+// FAQ items
+const faqItems = [
+  {
+    question: 'What should we wear to our session?',
+    answer:
+      "Wear what makes you feel like yourself. Coordinating tones work better than identical outfits — think about colors that sit next to each other in the same range. Avoid large logos and neon colors that tend to draw the eye away from faces. If you're unsure, send a photo and we can talk through it.",
+  },
+  {
+    question: 'How long until we receive our photos?',
+    answer:
+      '12 fully edited, high-resolution images are delivered via private Pixieset gallery within 2–3 weeks of your session. The gallery stays active for 90 days. Rush editing (48-hour turnaround) is available for an additional fee if requested before the session.',
+  },
+  {
+    question: 'Do you travel for sessions?',
+    answer:
+      'Yes. TLC serves central and northeast Louisiana and is available for travel beyond that for the right project. Travel fees apply for sessions outside a 30-mile radius. Contact us to discuss specifics.',
+  },
+  {
+    question: "What's included in a session?",
+    answer:
+      '12 fully edited, high-resolution images with full personal print rights. Images are delivered via private Pixieset gallery. Additional edited images are available after delivery at $12 per image. A full Photography Service Agreement is provided before any session is confirmed.',
+  },
+];
+
+// Latest blog post
+// Wire up Keystatic reader when blog posts are available:
+// try {
+//   const { createReader } = await import('@keystatic/core/reader');
+//   const keystaticConfig = (await import('../../keystatic.config')).default;
+//   const reader = createReader(process.cwd(), keystaticConfig);
+//   const allPosts = await reader.collections.posts.all();
+//   const published = allPosts
+//     .filter(p => p.entry.published)
+//     .sort((a, b) => new Date(b.entry.date).getTime() - new Date(a.entry.date).getTime());
+//   latestPost = published[0] || null;
+// } catch {}
+const latestPost: {
+  slug: string;
+  entry: { title: string; date: string; excerpt: string };
+} | null = null;
+
+const chatbotUrl = '';
 ---
 
 <BaseLayout
   title="TLC Photography | Boutique Portrait Photography in Louisiana"
   description="TLC Photography offers boutique portrait sessions for families, couples, seniors, newborns, and more in Louisiana. Tender love lights the way."
 >
-  <!-- Hero -->
+
+  <!-- ─── HERO ─────────────────────────────────────────────────────── -->
   <section class="hero" aria-label="Welcome to TLC Photography">
     <div class="hero-bg">
       <ImageOptimized
@@ -55,7 +178,7 @@ const placeholderTestimonials = [
     </div>
   </section>
 
-  <!-- Brand intro -->
+  <!-- ─── INTRO ────────────────────────────────────────────────────── -->
   <SectionWrapper>
     <SageAccent />
     <div class="intro-block">
@@ -65,55 +188,195 @@ const placeholderTestimonials = [
     </div>
   </SectionWrapper>
 
-  <!-- Featured portfolio -->
-  <SectionWrapper bg="var(--color-surface)">
-    <h2 class="section-heading">Recent Work</h2>
-    <SageAccent />
-    <div class="portfolio-preview" style="margin-top: var(--space-xl);">
-      <ImageOptimized
-        src={previewImg1}
-        alt="Portrait in soft Louisiana light"
-        loading="lazy"
-        aspectRatio="4/5"
-        widths={[400, 600, 800]}
-        sizes="(max-width: 640px) 50vw, 33vw"
-      />
-      <ImageOptimized
-        src={previewImg2}
-        alt="Outdoor portrait at golden hour"
-        loading="lazy"
-        aspectRatio="4/5"
-        widths={[400, 600, 800]}
-        sizes="(max-width: 640px) 50vw, 33vw"
-      />
-      <ImageOptimized
-        src={previewImg3}
-        alt="Candid moment during a portrait session"
-        loading="lazy"
-        aspectRatio="4/5"
-        widths={[400, 600, 800]}
-        sizes="(max-width: 640px) 50vw, 33vw"
-      />
-    </div>
-    <div style="margin-top: var(--space-xl);">
-      <a href="/portfolio" class="text-link">View the full portfolio →</a>
+  <!-- ─── ABOUT ────────────────────────────────────────────────────── -->
+  <SectionWrapper id="about" bg="var(--color-surface)">
+    <div class="split-section">
+      <div class="split-text">
+        <h2 class="split-heading">She came from California.</h2>
+        <p class="split-body">
+          TLC Photography is the work of a photographer who traded the Pacific coast for Louisiana live oaks and never looked back. The South wasn't a detour — it was the destination. The light here is different. The people are unhurried. The moments feel earned.
+        </p>
+        <p class="split-body">
+          She photographs families, couples, newborns, and graduating seniors — always chasing the moment after the pose, when the guard drops and something real surfaces.
+        </p>
+      </div>
+      <div class="split-image" aria-hidden="true">
+        <ImageOptimized
+          src={aboutImg1}
+          alt=""
+          loading="lazy"
+          aspectRatio="4/5"
+          widths={[400, 800, 1200]}
+          sizes="(max-width: 768px) 100vw, 58vw"
+        />
+      </div>
     </div>
   </SectionWrapper>
 
-  <!-- Testimonials -->
   <SectionWrapper>
+    <div class="split-section split-section--reverse">
+      <div class="split-image" aria-hidden="true">
+        <ImageOptimized
+          src={imgTLC02266}
+          alt=""
+          loading="lazy"
+          aspectRatio="4/5"
+          widths={[400, 800, 1200]}
+          sizes="(max-width: 768px) 100vw, 58vw"
+        />
+      </div>
+      <div class="split-text">
+        <h2 class="split-heading">Two Kinds of Light.</h2>
+        <p class="split-body">
+          There's the light you find at 7 AM, when everything is cool and sharp. And there's the light at 6 PM, when everything turns gold and soft. TLC works in both. The website itself shifts between the two — the design changes with the time of day, because the brand is built around the idea that light tells time.
+        </p>
+        <p class="split-body">
+          Every image is crafted to last a lifetime and be passed to the next.
+        </p>
+      </div>
+    </div>
+  </SectionWrapper>
+
+  <SectionWrapper bg="var(--color-surface)">
+    <div class="split-section">
+      <div class="split-text">
+        <h2 class="split-heading">The work is quiet.</h2>
+        <p class="split-body">
+          No dramatic edits. No manufactured nostalgia. Just light, people, and the truth of a moment. TLC's editing style is clean and film-adjacent — warm where the scene was warm, cool where the scene was cool.
+        </p>
+        <p class="split-body">
+          Her fiancé handles the business so she can stay behind the camera. That's the whole model: one photographer, full attention, every session.
+        </p>
+      </div>
+      <div class="split-image" aria-hidden="true">
+        <ImageOptimized
+          src={aboutImg3}
+          alt=""
+          loading="lazy"
+          aspectRatio="4/5"
+          widths={[400, 800, 1200]}
+          sizes="(max-width: 768px) 100vw, 58vw"
+        />
+      </div>
+    </div>
+  </SectionWrapper>
+
+  <!-- ─── PORTFOLIO ─────────────────────────────────────────────────── -->
+  <SectionWrapper id="portfolio">
+    <h2 class="section-heading">Portfolio</h2>
     <SageAccent />
-    <h2 class="section-heading" style="margin-bottom: var(--space-xl);">From Clients</h2>
+    <div class="portfolio-grid" style="margin-top: var(--space-xl);">
+      {portfolioImages.map((img) => (
+        <img
+          src={img.src}
+          alt={img.alt}
+          loading="lazy"
+          decoding="async"
+          class="portfolio-thumb"
+        />
+      ))}
+    </div>
+    <div style="margin-top: var(--space-xl);">
+      <a href="/portfolio" class="text-link">View the Full Portfolio →</a>
+    </div>
+  </SectionWrapper>
+
+  <!-- ─── SERVICES ──────────────────────────────────────────────────── -->
+  <SectionWrapper id="services" bg="var(--color-surface)">
+    <h2 class="section-heading">Services</h2>
+    <SageAccent />
+    <p class="section-body" style="margin-top: var(--space-lg);">
+      Every session starts with a conversation. TLC photographs the moment after the pose — when the real thing surfaces.
+    </p>
+    <div style="margin-top: var(--space-xl);">
+      <SessionTypeCards client:visible sessions={allSessions} />
+    </div>
+    <div style="margin-top: var(--space-xl);">
+      <a href="/services" class="text-link">See Full Session Details →</a>
+    </div>
+  </SectionWrapper>
+
+  <!-- ─── KIND WORDS ────────────────────────────────────────────────── -->
+  <SectionWrapper id="kind-words">
+    <SageAccent />
+    <h2 class="section-heading" style="margin-bottom: var(--space-xl); margin-top: var(--space-md);">Kind Words</h2>
     <TestimonialCarousel
       client:visible
-      testimonials={placeholderTestimonials}
+      testimonials={testimonials}
     />
   </SectionWrapper>
+
+  <!-- ─── BLOG ──────────────────────────────────────────────────────── -->
+  <SectionWrapper id="blog" bg="var(--color-surface)">
+    <h2 class="section-heading">From the Journal</h2>
+    <SageAccent />
+    {latestPost ? (
+      <div class="blog-preview" style="margin-top: var(--space-xl);">
+        <div class="blog-preview-header">
+          <h3 class="blog-preview-title">{latestPost.entry.title}</h3>
+          <time class="blog-preview-date" datetime={latestPost.entry.date}>
+            {new Date(latestPost.entry.date + 'T00:00:00').toLocaleDateString('en-US', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
+            })}
+          </time>
+        </div>
+        <div class="blog-preview-body">
+          <p class="blog-preview-text">{latestPost.entry.excerpt}</p>
+          <div class="blog-preview-fade" aria-hidden="true"></div>
+        </div>
+        <a href="/blog" class="text-link" style="margin-top: var(--space-lg); display: inline-block;">
+          Read More →
+        </a>
+      </div>
+    ) : (
+      <div style="margin-top: var(--space-xl);">
+        <p class="section-body">Stories coming soon.</p>
+        <a href="/blog" class="text-link" style="margin-top: var(--space-lg); display: inline-block;">
+          Visit the Journal →
+        </a>
+      </div>
+    )}
+  </SectionWrapper>
+
+  <!-- ─── CONTACT ───────────────────────────────────────────────────── -->
+  <SectionWrapper id="contact">
+    <h2 class="section-heading">Get in Touch</h2>
+    <SageAccent />
+
+    <div class="contact-layout">
+      <div class="contact-form-card">
+        <ContactForm client:only="react" />
+      </div>
+
+      <div class="contact-sidebar">
+        <p class="sidebar-body">
+          Prefer to talk it through first? Book a free 15-minute consultation — no commitment, just a conversation about what you have in mind.
+        </p>
+        <div style="margin-top: var(--space-lg);">
+          <CalendlyButton
+            description="Schedule a free consultation to discuss your session."
+          />
+        </div>
+      </div>
+    </div>
+  </SectionWrapper>
+
+  <SectionWrapper bg="var(--color-surface)">
+    <h2 class="section-heading">Common Questions</h2>
+    <SageAccent />
+    <div style="margin-top: var(--space-xl);">
+      <FAQAccordion client:visible items={faqItems} />
+    </div>
+  </SectionWrapper>
+
+  <ChatButton client:only="react" chatbotUrl={chatbotUrl} />
 
 </BaseLayout>
 
 <style>
-  /* Hero */
+  /* ── Hero ─────────────────────────────────────────────────────────── */
   .hero {
     position: relative;
     min-height: 80vh;
@@ -129,7 +392,6 @@ const placeholderTestimonials = [
     background-color: var(--color-surface);
   }
 
-  /* Force the image wrapper to fill the hero background absolutely */
   .hero-bg :global(.image-wrapper) {
     position: absolute !important;
     inset: 0;
@@ -139,7 +401,6 @@ const placeholderTestimonials = [
     aspect-ratio: unset !important;
   }
 
-  /* Force picture and img to fill */
   .hero-bg :global(picture),
   .hero-bg :global(img) {
     position: absolute !important;
@@ -181,7 +442,7 @@ const placeholderTestimonials = [
     margin: 0;
   }
 
-  /* Intro */
+  /* ── Intro ────────────────────────────────────────────────────────── */
   .intro-block {
     max-width: 640px;
     margin-top: var(--space-xl);
@@ -196,7 +457,65 @@ const placeholderTestimonials = [
     margin: 0;
   }
 
-  /* Section headings */
+  /* ── About: split sections ─────────────────────────────────────────── */
+  .split-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+    align-items: start;
+  }
+
+  .split-section .split-image {
+    order: -1;
+    width: 100%;
+  }
+
+  .split-section--reverse .split-image {
+    order: -1;
+    width: 100%;
+  }
+
+  .split-text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    width: 100%;
+  }
+
+  .split-heading {
+    font-family: var(--font-heading);
+    font-size: var(--text-h2);
+    font-weight: 400;
+    color: var(--color-text-primary);
+    margin: 0;
+    line-height: 1.25;
+  }
+
+  .split-body {
+    font-family: var(--font-body);
+    font-size: var(--text-body);
+    font-weight: 300;
+    color: var(--color-text-primary);
+    line-height: 1.8;
+    margin: 0;
+  }
+
+  /* ── Portfolio grid ─────────────────────────────────────────────────── */
+  .portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .portfolio-thumb {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border-radius: 4px;
+    display: block;
+  }
+
+  /* ── Shared section text ─────────────────────────────────────────────── */
   .section-heading {
     font-family: var(--font-heading);
     font-size: var(--text-h2);
@@ -205,23 +524,93 @@ const placeholderTestimonials = [
     margin: 0 0 var(--space-md);
   }
 
-  .section-subheading {
-    font-family: var(--font-subheading);
-    font-size: var(--text-subheading);
-    font-style: italic;
+  .section-body {
+    font-family: var(--font-body);
+    font-size: var(--text-body);
     font-weight: 300;
-    color: var(--color-neutral);
-    margin: var(--space-md) 0 0;
+    color: var(--color-text-primary);
+    line-height: 1.8;
+    margin: 0;
     max-width: 520px;
   }
 
-  /* Portfolio preview placeholders */
-  .portfolio-preview {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 8px;
+  /* ── Blog preview ─────────────────────────────────────────────────── */
+  .blog-preview-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-lg);
+    margin-top: var(--space-xl);
+    margin-bottom: var(--space-md);
   }
 
+  .blog-preview-title {
+    font-family: var(--font-heading);
+    font-size: var(--text-h3);
+    font-weight: 400;
+    color: var(--color-text-primary);
+    margin: 0;
+    line-height: 1.25;
+  }
+
+  .blog-preview-date {
+    font-family: var(--font-body);
+    font-size: var(--text-small);
+    color: var(--color-neutral);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .blog-preview-body {
+    position: relative;
+    max-width: 720px;
+    overflow: hidden;
+    max-height: 7em;
+  }
+
+  .blog-preview-text {
+    font-family: var(--font-body);
+    font-size: var(--text-body);
+    font-weight: 300;
+    color: var(--color-text-primary);
+    line-height: 1.8;
+    margin: 0;
+  }
+
+  .blog-preview-fade {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3em;
+    background: linear-gradient(to bottom, transparent, var(--color-surface));
+    pointer-events: none;
+  }
+
+  /* ── Contact layout ───────────────────────────────────────────────── */
+  .contact-layout {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xl);
+    margin-top: var(--space-2xl);
+  }
+
+  .contact-form-card {
+    background-color: var(--color-surface);
+    border-radius: 8px;
+    padding: var(--space-2xl);
+  }
+
+  .sidebar-body {
+    font-family: var(--font-body);
+    font-size: var(--text-body);
+    font-weight: 300;
+    color: var(--color-text-primary);
+    line-height: 1.8;
+    margin: 0;
+  }
+
+  /* ── Text link ────────────────────────────────────────────────────── */
   .text-link {
     font-family: var(--font-ui);
     font-size: var(--text-small);
@@ -236,15 +625,59 @@ const placeholderTestimonials = [
     opacity: 0.75;
   }
 
-  @media (min-width: 640px) {
-    .portfolio-preview {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
-
+  /* ── Responsive ───────────────────────────────────────────────────── */
   @media (min-width: 768px) {
     .hero-content {
       padding: var(--space-5xl) var(--margin-tablet);
+    }
+
+    .portfolio-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .split-section {
+      display: grid;
+      grid-template-columns: 5fr 7fr;
+      gap: var(--space-2xl);
+      align-items: center;
+    }
+
+    .split-section .split-text {
+      order: 0;
+    }
+
+    .split-section .split-image {
+      order: 0;
+      width: auto;
+    }
+
+    .split-section--reverse {
+      grid-template-columns: 7fr 5fr;
+    }
+
+    .split-section--reverse .split-image {
+      order: -1;
+    }
+
+    .split-section--reverse .split-text {
+      order: 0;
+    }
+
+    .contact-layout {
+      flex-direction: row;
+      align-items: flex-start;
+    }
+
+    .contact-form-card {
+      flex: 3;
+    }
+
+    .contact-sidebar {
+      flex: 2;
+    }
+
+    .blog-preview-header {
+      flex-direction: row;
     }
   }
 
@@ -261,6 +694,11 @@ const placeholderTestimonials = [
 
     .hero-headline {
       font-size: 36px;
+    }
+
+    .blog-preview-header {
+      flex-direction: column;
+      gap: var(--space-xs);
     }
   }
 </style>

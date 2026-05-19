@@ -15,8 +15,8 @@ type Token = (typeof TOKENS)[number];
 const WAYPOINTS: Record<Token, string[]> = {
   '--color-bg-primary':   ['#FAF7F4', '#FAF7F2', '#FBF7F1', '#FBF6F0', '#FBF6F0'],
   '--color-text-primary': ['#3A3338', '#372F32', '#332B2C', '#312827', '#2F2623'],
-  '--color-accent':       ['#9B8EC4', '#B28EAC', '#C08B76', '#C69862', '#C9A45C'],
-  '--color-surface':      ['#EDE7DF', '#ECE2D9', '#EBDDD3', '#EBDAD0', '#EBD9CF'],
+  '--color-accent':       ['#9B8EC4', '#9482A8', '#8A6E6A', '#7A6040', '#7A5A1A'],
+  '--color-surface':      ['#EDE7DF', '#EBE3D6', '#E9DECD', '#E7D8C2', '#E5D4B0'],
   '--color-neutral':      ['#A89B91', '#A09183', '#978676', '#907B6E', '#8E7568'],
   '--color-botanical-1':  ['#C2CBB2', '#B8C3A5', '#ADBA99', '#A6B292', '#A3AB8E'],
   '--color-botanical-2':  ['#D6DCCA', '#D8D9C4', '#DAD5BD', '#DCD2BA', '#DDD0B8'],

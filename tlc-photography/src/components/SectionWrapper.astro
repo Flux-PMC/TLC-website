@@ -2,12 +2,14 @@
 interface Props {
   bg?: string;
   class?: string;
+  id?: string;
 }
 
-const { bg, class: className } = Astro.props;
+const { bg, class: className, id } = Astro.props;
 ---
 
 <section
+  id={id}
   class:list={['section-wrapper', className]}
   style={bg ? `background-color: ${bg};` : ''}
 >
@@ -22,6 +24,7 @@ const { bg, class: className } = Astro.props;
     padding-bottom: var(--space-3xl);
     padding-left: var(--margin-mobile);
     padding-right: var(--margin-mobile);
+    scroll-margin-top: 64px;
   }
 
   .section-inner {

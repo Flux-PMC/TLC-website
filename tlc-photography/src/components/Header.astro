@@ -4,15 +4,14 @@ import MobileNav from './MobileNav';
 const currentPath = Astro.url.pathname;
 
 const NAV_LINKS = [
-  { href: '/portfolio', label: 'Portfolio' },
-  { href: '/services', label: 'Services' },
-  { href: '/about', label: 'About' },
-  { href: '/blog', label: 'Blog' },
-  { href: '/contact', label: 'Contact' },
+  { href: '/#about', label: 'About' },
+  { href: '/#portfolio', label: 'Portfolio' },
+  { href: '/#services', label: 'Services' },
+  { href: '/#blog', label: 'Blog' },
+  { href: '/#contact', label: 'Contact' },
 ];
 
-const isActive = (href: string) =>
-  currentPath === href || (href !== '/' && currentPath.startsWith(href));
+const isActive = (_href: string) => false;
 ---
 
 <header class="site-header">
@@ -67,7 +66,8 @@ const isActive = (href: string) =>
 
   .logo-text {
     font-family: var(--font-heading);
-    font-size: 24px;
+    font-size: 20px;
+    letter-spacing: 0.5px;
     font-weight: 400;
     color: var(--color-text-primary);
     white-space: nowrap;

@@ -2,40 +2,64 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import SectionWrapper from '../../components/SectionWrapper.astro';
 import SageAccent from '../../components/SageAccent.astro';
-import BlogCard from '../../components/BlogCard.astro';
 
-// Wire up Keystatic posts collection when content is available.
+// Wire up Keystatic posts when blog posts are available:
+// import { createReader } from '@keystatic/core/reader';
+// import keystaticConfig from '../../../keystatic.config';
 // const reader = createReader(process.cwd(), keystaticConfig);
 // const allPosts = await reader.collections.posts.all();
-// const posts = allPosts.filter(p => p.entry.published).sort(...)
+// const posts = await Promise.all(
+//   allPosts
+//     .filter(p => p.entry.published)
+//     .sort((a, b) => new Date(b.entry.date).getTime() - new Date(a.entry.date).getTime())
+//     .map(async (post) => ({
+//       slug: post.slug,
+//       title: post.entry.title,
+//       date: post.entry.date,
+//       content: await post.entry.content(),
+//     }))
+// );
 const posts: Array<{
   slug: string;
-  entry: { title: string; date: string; excerpt: string; coverImage: string };
+  title: string;
+  date: string;
+  content: string;
 }> = [];
 ---
 
 <BaseLayout
-  title="Blog | TLC Photography"
+  title="Journal | TLC Photography"
   description="Stories, session spotlights, and behind-the-scenes from TLC Photography in Louisiana."
 >
   <SectionWrapper>
-    <h1 class="page-title">Blog</h1>
+    <h1 class="page-title">Journal</h1>
     <SageAccent />
 
     {posts.length > 0 ? (
-      <div class="blog-grid" style="margin-top: var(--space-xl);">
-        {posts.map((post) => (
-          <BlogCard
-            title={post.entry.title}
-            date={post.entry.date}
-            excerpt={post.entry.excerpt}
-            coverImage={post.entry.coverImage}
-            slug={post.slug}
-          />
+      <div class="posts-list" style="margin-top: var(--space-2xl);">
+        {posts.map((post, idx) => (
+          <article id={post.slug} class="post-article" scroll-margin-top="64px">
+            <div class="post-header">
+              <h2 class="post-title">{post.title}</h2>
+              <time
+                class="post-date"
+                datetime={post.date}
+              >
+                {new Date(post.date + 'T00:00:00').toLocaleDateString('en-US', {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric',
+                })}
+              </time>
+            </div>
+            <SageAccent />
+            <div class="post-content" set:html={post.content} />
+            {idx < posts.length - 1 && <div class="post-divider" />}
+          </article>
         ))}
       </div>
     ) : (
-      <p class="empty-message">Stories coming soon.</p>
+      <p class="empty-message" style="margin-top: var(--space-xl);">Stories coming soon.</p>
     )}
   </SectionWrapper>
 </BaseLayout>
@@ -50,28 +74,106 @@ const posts: Array<{
     line-height: 1.2;
   }
 
-  .blog-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--space-xl);
+  .posts-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    max-width: 720px;
+  }
+
+  .post-article {
+    scroll-margin-top: 80px;
+  }
+
+  .post-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-lg);
+    margin-bottom: var(--space-md);
+  }
+
+  .post-title {
+    font-family: var(--font-heading);
+    font-size: var(--text-h2);
+    font-weight: 400;
+    color: var(--color-text-primary);
+    margin: 0;
+    line-height: 1.25;
+  }
+
+  .post-date {
+    font-family: var(--font-body);
+    font-size: var(--text-small);
+    color: var(--color-neutral);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .post-content {
+    margin-top: var(--space-xl);
+    font-family: var(--font-body);
+    font-size: var(--text-body);
+    font-weight: 300;
+    color: var(--color-text-primary);
+    line-height: 1.8;
+  }
+
+  .post-content :global(p) {
+    margin: 0 0 var(--space-lg);
+  }
+
+  .post-content :global(h2) {
+    font-family: var(--font-heading);
+    font-size: var(--text-h3);
+    font-weight: 400;
+    margin: var(--space-2xl) 0 var(--space-md);
+    color: var(--color-text-primary);
+  }
+
+  .post-content :global(h3) {
+    font-family: var(--font-heading);
+    font-size: 20px;
+    font-weight: 400;
+    margin: var(--space-xl) 0 var(--space-sm);
+    color: var(--color-text-primary);
+  }
+
+  .post-content :global(strong) {
+    font-weight: 500;
+  }
+
+  .post-content :global(em) {
+    font-style: italic;
+  }
+
+  .post-content :global(a) {
+    color: var(--color-accent);
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+
+  .post-content :global(a:hover) {
+    opacity: 0.75;
+  }
+
+  .post-divider {
+    height: 1px;
+    background-color: var(--color-botanical-1);
+    margin: var(--space-4xl) 0;
   }
 
   .empty-message {
     font-family: var(--font-body);
     font-size: var(--text-body);
     color: var(--color-neutral);
-    margin: var(--space-xl) 0 0;
+    margin: 0;
   }
 
-  @media (min-width: 768px) {
-    .blog-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .blog-grid {
-      grid-template-columns: repeat(3, 1fr);
+  @media (max-width: 767px) {
+    .post-header {
+      flex-direction: column;
+      gap: var(--space-xs);
     }
   }
 </style>

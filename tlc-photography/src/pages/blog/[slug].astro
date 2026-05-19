@@ -3,15 +3,24 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import SectionWrapper from '../../components/SectionWrapper.astro';
 import SageAccent from '../../components/SageAccent.astro';
 
-// Wire up Keystatic posts collection when content is available.
+// Wire up Keystatic posts when blog posts are available:
+// import { createReader } from '@keystatic/core/reader';
+// import keystaticConfig from '../../../keystatic.config';
+// export async function getStaticPaths() {
+//   const reader = createReader(process.cwd(), keystaticConfig);
+//   const allPosts = await reader.collections.posts.all();
+//   return allPosts
+//     .filter(p => p.entry.published)
+//     .map(post => ({ params: { slug: post.slug } }));
+// }
+//
+// const { slug } = Astro.params;
 // const reader = createReader(process.cwd(), keystaticConfig);
-export function getStaticPaths() {
-  // Returns empty until blog posts are added via Keystatic.
-  return [];
-}
+// const post = await reader.collections.posts.read(slug!);
+// if (!post) return Astro.redirect('/blog');
 
-interface Props {
-  slug?: string;
+export function getStaticPaths() {
+  return [];
 }
 
 const { slug } = Astro.params;
@@ -19,7 +28,6 @@ const { slug } = Astro.params;
 
 <BaseLayout title="Post | TLC Photography">
   <SectionWrapper>
-    <!-- Breadcrumb -->
     <nav aria-label="Breadcrumb" class="breadcrumb">
       <a href="/" class="breadcrumb-link">Home</a>
       <span class="breadcrumb-sep" aria-hidden="true"> / </span>
@@ -28,15 +36,14 @@ const { slug } = Astro.params;
       <span class="breadcrumb-current">{slug}</span>
     </nav>
 
-    <!-- Cover image placeholder -->
-    <div class="cover-image" aria-hidden="true"></div>
-
     <div class="post-body">
-      <h1 class="post-title">Post title</h1>
-      <p class="post-date">Date</p>
+      <div class="post-header">
+        <h1 class="post-title">Post title</h1>
+        <time class="post-date">Date</time>
+      </div>
       <SageAccent />
       <div class="post-content">
-        <p>Post content will appear here when blog posts are added via Keystatic.</p>
+        <p>Blog posts will appear here when added via Keystatic.</p>
       </div>
     </div>
   </SectionWrapper>
@@ -66,18 +73,19 @@ const { slug } = Astro.params;
 
   .breadcrumb-current {
     color: var(--color-neutral);
-  }
-
-  .cover-image {
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    background-color: var(--color-surface);
-    border-radius: 4px;
-    margin-bottom: var(--space-xl);
+    text-transform: none;
   }
 
   .post-body {
     max-width: 720px;
+  }
+
+  .post-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-lg);
+    margin-bottom: var(--space-md);
   }
 
   .post-title {
@@ -85,7 +93,7 @@ const { slug } = Astro.params;
     font-size: var(--text-h1);
     font-weight: 400;
     color: var(--color-text-primary);
-    margin: 0 0 var(--space-md);
+    margin: 0;
     line-height: 1.25;
   }
 
@@ -93,7 +101,8 @@ const { slug } = Astro.params;
     font-family: var(--font-body);
     font-size: var(--text-small);
     color: var(--color-neutral);
-    margin: 0 0 var(--space-xl);
+    white-space: nowrap;
+    flex-shrink: 0;
   }
 
   .post-content {
@@ -105,21 +114,40 @@ const { slug } = Astro.params;
     margin-top: var(--space-xl);
   }
 
-  .post-content p {
+  .post-content :global(p) {
     margin: 0 0 var(--space-lg);
   }
 
-  .post-content h2 {
-    font-family: var(--font-heading);
-    font-size: var(--text-h2);
-    font-weight: 400;
-    margin: var(--space-2xl) 0 var(--space-md);
-  }
-
-  .post-content h3 {
+  .post-content :global(h2) {
     font-family: var(--font-heading);
     font-size: var(--text-h3);
     font-weight: 400;
-    margin: var(--space-xl) 0 var(--space-md);
+    margin: var(--space-2xl) 0 var(--space-md);
+    color: var(--color-text-primary);
+  }
+
+  .post-content :global(h3) {
+    font-family: var(--font-heading);
+    font-size: 20px;
+    font-weight: 400;
+    margin: var(--space-xl) 0 var(--space-sm);
+    color: var(--color-text-primary);
+  }
+
+  .post-content :global(a) {
+    color: var(--color-accent);
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+
+  .post-content :global(a:hover) {
+    opacity: 0.75;
+  }
+
+  @media (max-width: 767px) {
+    .post-header {
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
   }
 </style>

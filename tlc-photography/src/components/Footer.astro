@@ -1,11 +1,4 @@
 ---
-const NAV_LINKS = [
-  { href: '/portfolio', label: 'Portfolio' },
-  { href: '/services', label: 'Services' },
-  { href: '/about', label: 'About' },
-  { href: '/blog', label: 'Blog' },
-  { href: '/contact', label: 'Contact' },
-];
 ---
 
 <footer class="site-footer">
@@ -19,14 +12,6 @@ const NAV_LINKS = [
           admin@tlc-photography.com
         </a>
       </div>
-
-      <nav class="footer-nav" aria-label="Footer navigation">
-        {NAV_LINKS.map((link) => (
-          <a href={link.href} class="footer-nav-link">
-            {link.label}
-          </a>
-        ))}
-      </nav>
 
       <div class="footer-social">
         <a href="#" class="social-link" aria-label="Instagram">
@@ -69,6 +54,8 @@ const NAV_LINKS = [
 
     <div class="footer-bottom">
       <span>© {new Date().getFullYear()} TLC Photography. All rights reserved.</span>
+      <span class="separator"> · </span>
+      <a href="/legal" class="legal-link">Legal</a>
     </div>
   </div>
 </footer>
